@@ -44,7 +44,7 @@ Welcome to our Melomix project, an advanced web application designed as part of 
 5. **Start the application:**
 
     ```bash
-    npm start
+    npm run dev
     ```
 
 ## Testing
