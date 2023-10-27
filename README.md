@@ -1,6 +1,6 @@
-# Spotify Clone
+# Melomix
 
-Welcome to our Spotify Clone project, an advanced web application designed as part of our group project in Advanced Web Engineering. This application is inspired by Spotify and aims to mimic some of its functionalities using the Spotify Web API. 
+Welcome to our Melomix project, an advanced web application designed as part of our group project in Advanced Web Engineering. This application is inspired by Spotify and aims to mimic some of its functionalities using the Spotify Web API. 
 
 ## Technologies Used
 
