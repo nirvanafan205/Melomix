@@ -72,9 +72,11 @@ const LoginPage = () => {
 
               {/* Takes you to registration page */}
               <div className="mt-4">
-                <span className="text-xs text-pink-500 hover:text-cyan-300">
-                  New Here? Create an Account!
-                </span>
+                <Link to="/registration">
+                  <span className="text-xs text-pink-500 hover:text-cyan-300">
+                    New Here? Create an Account!
+                  </span>
+                </Link>
               </div>
             </div>
 
