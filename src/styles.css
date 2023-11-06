@@ -6,14 +6,52 @@
 /* Define a CSS animation */
 @keyframes rotate {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
-  
-  /* Apply the animation to your gradient background */
-  .bg-gradient-spin {
-    animation: rotate 5s linear infinite; /* Adjust the duration and timing function as needed */
-  }
+}
+
+/* Apply the animation to your gradient background */
+.bg-gradient-spin {
+    animation: rotate 5s linear infinite;
+    /* Adjust the duration and timing function as needed */
+}
+
+@keyframes rainbow {
+
+    0%,
+    100% {
+        color: royalblue;
+    }
+
+    14% {
+        color: aquamarine;
+    }
+
+    28% {
+        color: magenta;
+    }
+
+    42% {
+        color: blueviolet;
+    }
+
+    57% {
+        color: pink;
+    }
+
+    71% {
+        color: plum;
+    }
+
+    85% {
+        color: indigo;
+    }
+}
+
+.animate-rainbow {
+    animation: rainbow 9s infinite linear;
+}
