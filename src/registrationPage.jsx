@@ -4,17 +4,27 @@ import {
   faUser,
   faLock,
   faUnlock,
-  faHouse,
-  faGears,
+  faEnvelope,
   faArrowRotateLeft,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   return (
@@ -35,6 +45,30 @@ const Registration = () => {
                 type="email"
                 className="block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
                 placeholder=""
+                value={email}
+                onChange={handleEmailChange}
+              />
+
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className=" text-lg absolute text-indigo-800 top-3 left-64"
+              />
+
+              <label
+                htmlFor=""
+                className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6  "
+              >
+                Email
+              </label>
+            </div>
+
+            <div className="relative my-4">
+              <input
+                type="text"
+                className="block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+                placeholder=""
+                value={username}
+                onChange={handleUsernameChange}
               />
 
               <FontAwesomeIcon
@@ -46,15 +80,16 @@ const Registration = () => {
                 htmlFor=""
                 className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6  "
               >
-                Your Email
+                Username
               </label>
             </div>
-            <div className="relative my-4">
+
+            <div className="relative">
               <FontAwesomeIcon
                 icon={showPassword ? faUnlock : faLock}
                 className={`absolute text-lg ${
                   showPassword ? "text-pink-500" : "text-purple-800"
-                } top-3 left-64 pt-8 cursor-pointer`}
+                }  left-64 top-2 cursor-pointer`}
                 onClick={togglePasswordVisibility}
               />
 
@@ -62,26 +97,27 @@ const Registration = () => {
                 type={showPassword ? "text" : "password"}
                 className={`block w-72 py-2.5 px-0 text-lg ${
                   showPassword ? "text-pink-500" : "text-purple-800"
-                } bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer pt-10`}
+                } block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-Blue-600 peer`}
                 placeholder=""
               />
 
               <label
                 htmlFor=""
-                className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-10 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
               >
-                Your Password
+                Password
               </label>
 
-              {/* Takes you to registration page */}
-              <div className="mt-24 flex justify-center items-center">
+              <div className="mt-8 flex justify-center items-center">
                 <Link to="/login">
-                  <span className="text-xs text-pink-500 hover:text-cyan-300">
-                    <FontAwesomeIcon
-                      icon={faArrowRotateLeft}
-                      className="text-3xl text-teal-200 hover:text-violet-700"
-                    />
-                  </span>
+                  <FontAwesomeIcon
+                    icon={faArrowRotateLeft}
+                    className="text-3xl text-teal-200 hover:text-violet-700 mt-8 mr-16" // Add margin-right
+                  />
+                  <FontAwesomeIcon
+                    icon={faUserPlus} // Use the faUserPlus icon here
+                    className="text-3xl text-indigo-800 hover:text-blue-600"
+                  />
                 </Link>
               </div>
             </div>
