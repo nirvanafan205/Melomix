@@ -10,10 +10,34 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+// function to validate password
+function isPasswordValid(password) {
+  // Define password requirements
+  const minLength = 6;
+  const uppercaseRegex = /[A-Z]/;
+  const lowercaseRegex = /[a-z]/;
+  const digitRegex = /[0-9]/;
+  const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/;
+
+  // Check if all requirements are met
+  return (
+    password.length >= minLength &&
+    uppercaseRegex.test(password) &&
+    lowercaseRegex.test(password) &&
+    digitRegex.test(password) &&
+    specialCharRegex.test(password)
+  );
+}
+
 const Registration = () => {
+  // input box stuff
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState(""); // Add state for password
+  const [passwordError, setPasswordError] = useState(""); // Add state for password error message
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false); // Add state for modal visibility
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -25,6 +49,15 @@ const Registration = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // Close the password error modal
+  const handleClosePasswordModal = () => {
+    setIsPasswordModalOpen(false);
   };
 
   return (
@@ -108,17 +141,17 @@ const Registration = () => {
                 Password
               </label>
 
-              <div className="mt-8 flex justify-center items-center">
+              <div className="mt-12 flex items-center justify-center">
                 <Link to="/login">
                   <FontAwesomeIcon
                     icon={faArrowRotateLeft}
-                    className="text-3xl text-teal-200 hover:text-violet-700 mt-8 mr-16" // Add margin-right
-                  />
-                  <FontAwesomeIcon
-                    icon={faUserPlus} // Use the faUserPlus icon here
-                    className="text-3xl text-indigo-800 hover:text-blue-600"
+                    className="text-3xl text-teal-200 hover:text-violet-700 mr-16"
                   />
                 </Link>
+                <FontAwesomeIcon
+                  icon={faUserPlus}
+                  className="text-3xl text-indigo-800 hover:text-blue-600"
+                />
               </div>
             </div>
           </form>
