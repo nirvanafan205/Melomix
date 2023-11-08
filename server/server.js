@@ -1,13 +1,13 @@
 const express = require("express");
-//const cors = require("cors");
-//const bodyParser = require("body-parser");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const SpotifyWebApi = require("spotify-web-api-node");
 
 const app = express();
-//app.use(cors());
-//app.use(bodyParser.json());
+app.use(cors());
+app.use(bodyParser.json());
 
-app.post("/login", (req, res) => {
+app.post("/search", (req, res) => {
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: "http://localhost:5173/search",
@@ -29,4 +29,4 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.listen(5173);
+app.listen(5174);
