@@ -1,0 +1,16 @@
+.app{
+    background-color: grey;
+}
+.container{
+    width: 100%;
+}
+.row{
+    background-color: black;
+}
+.nav-link{
+    text-decoration: none;
+    color:aliceblue;
+}
+.nav-link:hover{
+    color:red;
+}
