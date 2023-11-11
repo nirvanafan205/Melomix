@@ -15,7 +15,7 @@ const useAuth = (code) => {
         //console.log(res.data);
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
-        setExpiresIn(61);
+        setExpiresIn(res.data.expiresIn);
         window.history.pushState({}, null, "/");
       })
       .catch(() => {
@@ -32,7 +32,7 @@ const useAuth = (code) => {
         })
         .then((res) => {
           setAccessToken(res.data.accessToken);
-          setExpiresIn(61);
+          setExpiresIn(res.data.expiresIn);
         })
         .catch(() => {
           window.location = "/";
