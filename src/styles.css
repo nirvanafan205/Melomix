@@ -55,3 +55,20 @@
 .animate-rainbow {
     animation: rainbow 9s infinite linear;
 }
+
+/*  this is for login starry night */
+
+/* Animation for moving twinkling image to the left */
+@keyframes moveTwinkleLeft {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -100% 0; /* Adjust the percentage as needed */
+    }
+}
+
+.animate-move-twinkle-back {
+    animation: moveTwinkleLeft 50s linear infinite; /* Adjust the duration as needed */
+}
