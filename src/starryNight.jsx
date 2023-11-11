@@ -1,17 +1,6 @@
-// starryNight component
-/*
-
-    .clouds {
-        background: transparent url(clouds.png) repeat top center;
-        z-index: 2;
-        opacity: .4;
-        animation: move;
-    }
-
-*/
 import React from "react";
 
-const StarryNight = () => {
+const StarryNight = ({children}) => {
   return (
     <div className="relative w-full h-screen">
       <div
@@ -22,7 +11,12 @@ const StarryNight = () => {
         className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-transparent bg-repeat bg-center z-1 animate-move-twinkle-back"
         style={{ backgroundImage: 'url("twinkling.png")' }}
       ></div>
-      <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full clouds"></div>
+      <div
+        className="absolute top-0 left-0 right-0 bottom-0 w-full h-full clouds bg-clouds opacity-40 animate-move-clouds"
+        style={{ backgroundImage: 'url("clouds.png")' }}
+      ></div>
+
+      {children}
     </div>
   );
 };
