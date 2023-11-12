@@ -1,4 +1,4 @@
-.app{
+.App{
     background-color: grey;
 }
 .container{
@@ -6,10 +6,14 @@
 }
 .row{
     background-color: black;
+    box-shadow: 0 0 0.8rem #bc13fe,
+            0 0 2.8rem #bc13fe,
+            inset 0 0 #bc13fe;
 }
 .nav-link{
     text-decoration: none;
     color:aliceblue;
+    padding: 15px;
 }
 .nav-link:hover{
     color:red;
