@@ -1,6 +1,6 @@
 import React from "react";
 
-const StarryNight = ({children}) => {
+const StarryNight = ({ children }) => {
   return (
     <div className="relative w-full h-screen">
       <div
@@ -15,7 +15,6 @@ const StarryNight = ({children}) => {
         className="absolute top-0 left-0 right-0 bottom-0 w-full h-full clouds bg-clouds opacity-40 animate-move-clouds"
         style={{ backgroundImage: 'url("clouds.png")' }}
       ></div>
-
       {children}
     </div>
   );
