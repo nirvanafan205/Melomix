@@ -5,7 +5,7 @@ import Login from "./pages/login";
 import './styles/App.css';
 import { Link } from 'react-router-dom';
 
-function App() {
+function App() { 
   return (
     <>
     {/* Fluid lets it cover the whole width of the page */}
@@ -13,14 +13,14 @@ function App() {
       <div class="row">
         <div class="col-4">
         </div>
-        <div class="col-1">
-          <h2><Link to={"/"} className="nav-link">Home</Link></h2>
+        <div class="col">
+          <h3><Link to={"/"} className="nav-link">Home</Link></h3>
         </div>
-        <div class="col-1">
-          <h2><Link to={"/login"} className="nav-link">Login</Link></h2>
+        <div class="col">
+          <h3><Link to={"/login"} className="nav-link">Login</Link></h3>
         </div>
-        <div class="col-2">
-          <h2><Link to={"/register"} className="nav-link">Sign-Up</Link></h2>
+        <div class="col">
+          <h3><Link to={"/register"} className="nav-link">Sign-Up</Link></h3>
         </div>
         <div class="col-4">
         </div>
