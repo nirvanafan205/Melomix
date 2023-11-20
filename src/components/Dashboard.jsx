@@ -43,7 +43,12 @@ export default function Dashboard() {
       {trackArray.length > 0 ? (
         <ul>
           {trackArray.map((track) => (
-            <li key={track.id}>{track.name}</li>
+            <li key = {track.id}>
+              <div>
+                  <img width = "200" src = {track.album.images[0].url}></img>
+                  <p>{track.name}</p>
+              </div>
+            </li>
           ))}
         </ul>
       ) : (
