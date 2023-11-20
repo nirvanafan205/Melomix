@@ -3,7 +3,7 @@ const CID = "b8c6b5a6bf1647ab89b7cc581e48ff8b";
 const CSECRET = "dd294268f14c4f23949c73d19d9c5609";
 
 let accessToken = null;
-let searchInput = "John";
+let tracks = null;
 
 async function getAccessToken() {
   const authorization = {
@@ -20,20 +20,19 @@ async function getAccessToken() {
   return accessToken;
 }
 
-async function callSpotifyAPI() {
+async function callSpotifyAPI(searchInput) {
   await getAccessToken();
 
-  const data = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=artist`, {
+  const data = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=track`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
 
-  let artists = await data.json();
-  // First Artist
-  let artistID = artists.artists.items[0].id;
-  console.log(artists);
-  await getArtistTracks(artistID);
+  let tracks = await data.json();
+  console.log("test ",tracks.tracks);
+  //await getArtistTracks(artistID);
+  return tracks
 }
 
 async function getArtistTracks(artistID) {
@@ -43,7 +42,7 @@ async function getArtistTracks(artistID) {
     }
   });
 
-  let tracks = await data.json();
+  tracks = await data.json();
   let track = tracks.tracks[0].name;
   console.log(track);
 }
