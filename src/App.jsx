@@ -1,9 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./styles.css";
 import Login from "./loginPage";
 import Registration from "./registrationPage";
+import ReactDOM from "react-dom"; // Correct the import statement
+import Dashboard from "./components/Dashboard";
+import "./style.css";
+import "./styles.css";
 
 const App = () => {
   return (
@@ -12,6 +14,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
       </Routes>
+      <Dashboard />
     </BrowserRouter>
   );
 };
