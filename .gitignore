@@ -1,4 +1,12 @@
 node_modules/
+<<<<<<< HEAD
+dist/
+.env
+.DS_Store
+coverage/
+.vscode/
+=======
+>>>>>>> a9ead7e9efbdf430e853d96135727238f877c306
 bundle.js
 npm-debug.log
 
@@ -11,9 +19,13 @@ npm-debug.log
 
 build/
 dist/
+<<<<<<< HEAD
+client/.parcel-cache
+=======
 client/.parcenode_modules/
 dist/
 .env
 .DS_Store
 coverage/
 .vscode/
+>>>>>>> a9ead7e9efbdf430e853d96135727238f877c306
