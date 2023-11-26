@@ -1,89 +1,68 @@
-/*
-  Importing necessary modules:
-    express for the web server
-    cors for handling Cross-Origin Resource Sharing
-    body-parser for parsing JSON in request bodies and spotify-web-api-node for working with the Spotify API
-
-  Creating an Express application (app)
-
-  Applying middleware:
-    cors() for enabling CORS 
-    bodyParser.json() for parsing JSON in request bodies
-*/
-
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const SpotifyWebApi = require("spotify-web-api-node");
+const bcrypt = require("bcrypt");
+const userModel = require("./models/user");
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
 
-// Token Refresh Endpoint (/refresh)
-app.post("/refresh", (req, res) => {
-  const refreshToken = req.body.refreshToken;
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri: "http://localhost:5173/search",
-    clientId: "5eb084a46a0a4ff9a4c885b1bdd130da",
-    clientSecret: "27188872cb704575b8a954349a48c27f",
-    refreshToken,
-  });
+app.use(express.json());
+app.use(cors()); // Enable CORS
 
-  spotifyApi
-    .refreshAccessToken()
-    .then((data) => {
-      res.json({
-        accessToken: data.body.accessToken,
-        expiresIn: data.body.expiresIn,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(400);
+mongoose.connect("mongodb://127.0.0.1:27017/Users");
+
+app.post("/register", async (req, res) => {
+  try {
+    // Validate the data (similar to client-side validation logic)
+    let errors = [];
+
+    if (req.body.password.length < 6) {
+      errors.push("Password is too short (min 6 characters)");
+    }
+
+    if (!/[A-Z]/.test(req.body.password)) {
+      errors.push("Password must contain at least one uppercase letter");
+    }
+
+    if (!/\d/.test(req.body.password)) {
+      errors.push("Password must contain at least one number");
+    }
+
+    if (!/\d/.test(req.body.username)) {
+      errors.push("Username must contain at least one number");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(req.body.email)) {
+      errors.push("Enter a valid email address");
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(req.body.password)) {
+      errors.push("Password must contain at least one special character");
+    }
+
+    if (errors.length > 0) {
+      // If there are validation errors, return them to the client
+      return res.status(400).json({ errors });
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    const user = new userModel({
+      name: req.body.username,
+      password: hashedPassword,
+      email: req.body.email,
     });
 
-  /*
-    Handling POST requests to "/refresh."
-    Extracting the refresh token from the request body
-    Create a new instance of SpotifyWebApi with the client ID, client secret, redirect URI, and refresh token.
-    Using the refreshAccessToken method to obtain a new access token
-    Sending a JSON response with the new access token and its expiration time
-    Handling errors by logging them and sending a 400 status code in case of failure
-  */
+    await user.save();
+
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-// Authorization Code Grant Endpoint (/search)
-app.post("/search", (req, res) => {
-  const code = req.body.code;
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri: "http://localhost:5173/search",
-    clientId: "5eb084a46a0a4ff9a4c885b1bdd130da",
-    clientSecret: "27188872cb704575b8a954349a48c27f",
-  });
-
-  spotifyApi
-    .authorizationCodeGrant(code)
-    .then((data) => {
-      res.json({
-        accessToken: data.body.access_token,
-        refreshToken: data.body.refresh_token,
-        expiresIn: data.body.expires_in,
-      });
-    })
-    .catch(() => {
-      res.sendStatus(400);
-    });
-
-  /*
-    Handling POST requests to "/search."
-    Extracts authorization code from the request body
-    Creates new instance of SpotifyWebApi with the client ID, client secret, and redirect URI
-    Uses authorizationCodeGrant method to exchange the code for access and refresh tokens
-    Sends a JSON response with the obtained tokens and their expiration time
-    Handling errors by sending a 400 status code in case of failure
-  */
+app.listen(3001, () => {
+  console.log("Server is running on port 3001");
 });
-
-// Make the server listen on port 5174
-app.listen(5174);
