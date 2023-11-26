@@ -8,7 +8,7 @@ import {
   faGears,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import StarryNight from "./starryNight";
+import StarryNight from "./components/starryNight";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);

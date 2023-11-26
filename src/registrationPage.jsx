@@ -34,6 +34,20 @@ const Registration = () => {
       errors.push("Password must contain at least one uppercase letter");
     }
 
+    if (!/\d/.test(username)) {
+      errors.push("Username must contain at least one number");
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      errors.push("Enter a valid email address");
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.push("Password must contain at least one special character");
+    }
+
     setPasswordError(errors.join("\n"));
 
     if (errors.length > 0) {
@@ -69,6 +83,7 @@ const Registration = () => {
                   className="block w-full sm:w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
                   placeholder=""
                   value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <FontAwesomeIcon
