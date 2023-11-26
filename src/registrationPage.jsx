@@ -27,9 +27,21 @@ const Registration = () => {
   };
 
   const showNotification = (message, type) => {
-    setNotification({ message, type });
+    let textColor, bgColor;
+
+    // Set colors based on notification type
+    if (type === "success") {
+      textColor = "text-white";
+      bgColor = "bg-green-600";
+    } else if (type === "error") {
+      textColor = "text-white";
+      bgColor = "bg-red-600";
+    }
+
+    setNotification({ message, type, textColor, bgColor });
+
     setTimeout(() => {
-      setNotification({ message: "", type: "" });
+      setNotification({ message: "", type: "", textColor: "", bgColor: "" });
     }, 5000); // Close the notification after 5 seconds
   };
 
@@ -206,21 +218,21 @@ const Registration = () => {
             className={`fixed inset-x-0 bottom-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end sm:inset-0`}
           >
             <div
-              className={`max-w-sm w-full bg-${
-                notification.type === "success" ? "green" : "red"
-              }-600 shadow-lg rounded-lg pointer-events-auto`}
+              className={`max-w-sm w-full ${notification.bgColor} shadow-lg rounded-lg pointer-events-auto`}
             >
               <div className="rounded-lg shadow-xs overflow-hidden">
                 <div className="p-4">
                   <div className="flex items-start">
-                    <div className="ml-3 w-0 flex-1 pt-0.5">
-                      <p className="text-sm leading-5 font-medium text-white">
+                    <div
+                      className={`ml-3 w-0 flex-1 pt-0.5 ${notification.textColor}`}
+                    >
+                      <p className="text-sm leading-5 font-medium">
                         {notification.message}
                       </p>
                     </div>
                     <div className="ml-4 flex-shrink-0 flex">
                       <button
-                        className="inline-flex text-white focus:outline-none focus:text-white"
+                        className={`inline-flex ${notification.textColor} focus:outline-none focus:text-white`}
                         onClick={() =>
                           setNotification({ message: "", type: "" })
                         }
