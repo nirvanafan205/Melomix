@@ -40,10 +40,17 @@ app.post("/register", async (req, res) => {
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(req.body.password)) {
       errors.push("Password must contain at least one special character");
     }
-
     if (errors.length > 0) {
       // If there are validation errors, return them to the client
       return res.status(400).json({ errors });
+    }
+
+    // Check if the username already exists
+    const existingUser = await userModel.findOne({ name: req.body.username });
+
+    if (existingUser) {
+      // If the username exists, return an error message to the client
+      return res.status(400).json({ errors: ["Username already exists"] });
     }
 
     // Hash the password with bcrypt

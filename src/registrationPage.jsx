@@ -20,9 +20,17 @@ const Registration = () => {
   const [passwordError, setPasswordError] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification({ message: "", type: "" });
+    }, 5000); // Close the notification after 5 seconds
   };
 
   const handleRegistration = async () => {
@@ -66,9 +74,15 @@ const Registration = () => {
         setModalOpen(false);
         setRegistrationError("");
 
-        console.log(response.data);
+        // Show success notification
+        showNotification(response.data.message, "success");
       } catch (error) {
-        console.error("Error:", error);
+        if (error.response && error.response.status === 400) {
+          // Show username exists notification
+          showNotification("Username already exists", "error");
+        } else {
+          console.error("Error:", error);
+        }
       }
     }
   };
@@ -82,14 +96,11 @@ const Registration = () => {
       <div className="w-full min-h-screen flex justify-center items-center bg-gray-900">
         <div className="relative w-80 h-96 bg-gray-800 rounded-lg overflow-hidden">
           <div className="absolute w-80 h-96 bg-gradient-to-r from-fuchsia-500 via-fuchsia-800 to-transparent -top-1/2 -left-1/2 animate-spin-slow origin-bottom-right bg-gradient-spin"></div>
-
           <div className="absolute w-80 h-96 bg-gradient-to-r from-fuchsia-500 via-fuchsia-800 to-transparent -top-1/2 -left-1/2 animate-spin-slow origin-bottom-right bg-gradient-spin"></div>
-
           <div className="absolute inset-1 bg-gray-950 rounded-lg z-10 p-5">
             <h1 className="text-4xl text-center mb-6 animate-rainbow">
               Registration
             </h1>
-
             <form action="">
               <div className="relative my-4">
                 <input
@@ -99,20 +110,17 @@ const Registration = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-
                 <FontAwesomeIcon
                   icon={faEnvelope}
                   className="text-lg absolute text-indigo-800 top-3 left-64"
                 />
-
                 <label
                   htmlFor=""
-                  className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6  "
+                  className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Email
                 </label>
               </div>
-
               <div className="relative my-4">
                 <input
                   type="text"
@@ -121,20 +129,17 @@ const Registration = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-
                 <FontAwesomeIcon
                   icon={faUser}
                   className="text-lg absolute text-indigo-800 top-3 left-64"
                 />
-
                 <label
                   htmlFor=""
-                  className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6  "
+                  className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Username
                 </label>
               </div>
-
               <div className="relative">
                 <FontAwesomeIcon
                   icon={showPassword ? faUnlock : faLock}
@@ -143,7 +148,6 @@ const Registration = () => {
                   }  left-64 top-2 cursor-pointer`}
                   onClick={togglePasswordVisibility}
                 />
-
                 <input
                   type={showPassword ? "text" : "password"}
                   className={`block w-full sm:w-72 py-2.5 px-0 text-lg ${
@@ -153,14 +157,12 @@ const Registration = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
                 <label
                   htmlFor=""
-                  className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Password
                 </label>
-
                 <div className="mt-12 flex items-center justify-center">
                   <Link to="/login">
                     <FontAwesomeIcon
@@ -168,7 +170,6 @@ const Registration = () => {
                       className="text-3xl text-teal-200 hover:text-violet-700 mr-16"
                     />
                   </Link>
-
                   <FontAwesomeIcon
                     icon={faUserPlus}
                     className="text-3xl text-indigo-800 hover:text-blue-600"
@@ -191,13 +192,45 @@ const Registration = () => {
                   {error}
                 </p>
               ))}
-
               <button
                 className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md"
                 onClick={closeModal}
               >
                 Close
               </button>
+            </div>
+          </div>
+        )}
+        {notification.message && (
+          <div
+            className={`fixed inset-x-0 bottom-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end sm:inset-0`}
+          >
+            <div
+              className={`max-w-sm w-full bg-${
+                notification.type === "success" ? "green" : "red"
+              }-600 shadow-lg rounded-lg pointer-events-auto`}
+            >
+              <div className="rounded-lg shadow-xs overflow-hidden">
+                <div className="p-4">
+                  <div className="flex items-start">
+                    <div className="ml-3 w-0 flex-1 pt-0.5">
+                      <p className="text-sm leading-5 font-medium text-white">
+                        {notification.message}
+                      </p>
+                    </div>
+                    <div className="ml-4 flex-shrink-0 flex">
+                      <button
+                        className="inline-flex text-white focus:outline-none focus:text-white"
+                        onClick={() =>
+                          setNotification({ message: "", type: "" })
+                        }
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
