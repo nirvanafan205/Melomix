@@ -8,57 +8,45 @@ import {
   faArrowRotateLeft,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import StarryNight from "./starryNight";
+import StarryNight from "./components/starryNight";
 import { Link } from "react-router-dom";
 
-// function to validate password
-function isPasswordValid(password) {
-  // Define password requirements
-  const minLength = 6;
-  const uppercaseRegex = /[A-Z]/;
-  const lowercaseRegex = /[a-z]/;
-  const digitRegex = /[0-9]/;
-  const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/;
-
-  // Check if all requirements are met
-  return (
-    password.length >= minLength &&
-    uppercaseRegex.test(password) &&
-    lowercaseRegex.test(password) &&
-    digitRegex.test(password) &&
-    specialCharRegex.test(password)
-  );
-}
-
 const Registration = () => {
-  // input box stuff
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState(""); // Add state for password
-  const [passwordError, setPasswordError] = useState(""); // Add state for password error message
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false); // Add state for modal visibility
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const handleRegistration = () => {
+    let errors = [];
+
+    if (password.length < 6) {
+      errors.push("Password is too short (min 6 characters)");
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must contain at least one uppercase letter");
+    }
+
+    setPasswordError(errors.join("\n"));
+
+    if (errors.length > 0) {
+      // Open the modal if there are errors
+      setModalOpen(true);
+    } else {
+      // Perform registration or other actions if there are no errors
+      setModalOpen(false);
+    }
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  // Close the password error modal
-  const handleClosePasswordModal = () => {
-    setIsPasswordModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -78,10 +66,9 @@ const Registration = () => {
               <div className="relative my-4">
                 <input
                   type="email"
-                  className="block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+                  className="block w-full sm:w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
                   placeholder=""
                   value={email}
-                  onChange={handleEmailChange}
                 />
 
                 <FontAwesomeIcon
@@ -100,10 +87,10 @@ const Registration = () => {
               <div className="relative my-4">
                 <input
                   type="text"
-                  className="block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+                  className={`block w-full sm:w-72 py-2.5 px-0 text-lg text-purple-800 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-Blue-600 peer`}
                   placeholder=""
                   value={username}
-                  onChange={handleUsernameChange}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
 
                 <FontAwesomeIcon
@@ -130,10 +117,12 @@ const Registration = () => {
 
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`block w-72 py-2.5 px-0 text-lg ${
+                  className={`block w-full sm:w-72 py-2.5 px-0 text-lg ${
                     showPassword ? "text-pink-500" : "text-purple-800"
-                  } block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-Blue-600 peer`}
+                  } text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-Blue-600 peer`}
                   placeholder=""
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <label
@@ -150,15 +139,35 @@ const Registration = () => {
                       className="text-3xl text-teal-200 hover:text-violet-700 mr-16"
                     />
                   </Link>
+
                   <FontAwesomeIcon
                     icon={faUserPlus}
                     className="text-3xl text-indigo-800 hover:text-blue-600"
+                    onClick={handleRegistration}
                   />
                 </div>
               </div>
             </form>
           </div>
         </div>
+        {modalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gray-700 opacity-75"></div>
+            <div className="z-10 bg-white p-8 rounded-md absolute w-80">
+              {passwordError.split("\n").map((error, index) => (
+                <p key={index} className="text-red-500 text-center">
+                  {error}
+                </p>
+              ))}
+              <button
+                className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </StarryNight>
   );
