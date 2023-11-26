@@ -9,6 +9,7 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import StarryNight from "./components/starryNight";
+import axios from "axios"; // Import Axios
 import { Link } from "react-router-dom";
 
 const Registration = () => {
@@ -23,7 +24,7 @@ const Registration = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
     let errors = [];
 
     if (password.length < 6) {
@@ -49,13 +50,30 @@ const Registration = () => {
     }
 
     setPasswordError(errors.join("\n"));
-
     if (errors.length > 0) {
       // Open the modal if there are errors
       setModalOpen(true);
     } else {
-      // Perform registration or other actions if there are no errors
-      setModalOpen(false);
+      try {
+        // Send registration data to the server using Axios
+        const response = await axios.post("http://localhost:3001/register", {
+          username,
+          password,
+          email,
+        });
+
+        // Reset form fields and close modal on successful registration
+        setUsername("");
+        setPassword("");
+        setEmail("");
+        setModalOpen(false);
+
+        // You can handle the server response as needed
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle errors, e.g., show an error message to the user
+      }
     }
   };
 
