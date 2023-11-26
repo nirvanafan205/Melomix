@@ -7,9 +7,15 @@ const userModel = require("./models/user");
 const app = express();
 
 app.use(express.json());
-app.use(cors()); // Enable CORS
+app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
+
+// Function to check if a username already exists
+const isUsernameTaken = async (username) => {
+  const existingUser = await userModel.findOne({ name: username });
+  return existingUser !== null;
+};
 
 app.post("/register", async (req, res) => {
   try {
@@ -46,8 +52,17 @@ app.post("/register", async (req, res) => {
       return res.status(400).json({ errors });
     }
 
+    // Check if the username already exists
+    const isUsernameExists = await isUsernameTaken(req.body.username);
+    if (isUsernameExists) {
+      // Username already exists, return an error
+      return res.status(400).json({ errors: ["Username already exists"] });
+    }
+
+    // Hash the password with bcrypt
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
+    // Save user data to the database using the userModel
     const user = new userModel({
       name: req.body.username,
       password: hashedPassword,

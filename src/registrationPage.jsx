@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -9,7 +9,7 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import StarryNight from "./components/starryNight";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Registration = () => {
@@ -17,82 +17,70 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [registrationError, setRegistrationError] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleRegistration = async () => {
-    let errors = [];
+    try {
+      // Validate other fields as needed
 
-    if (password.length < 6) {
-      errors.push("Password is too short (min 6 characters)");
-    }
+      const response = await axios.post("http://localhost:3001/register", {
+        username,
+        password,
+        email,
+      });
 
-    if (!/[A-Z]/.test(password)) {
-      errors.push("Password must contain at least one uppercase letter");
-    }
+      // Reset form fields on successful registration
+      setUsername("");
+      setPassword("");
+      setEmail("");
 
-    if (!/\d/.test(username)) {
-      errors.push("Username must contain at least one number");
-    }
+      // Reset registration error
+      setRegistrationError("");
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      errors.push("Enter a valid email address");
-    }
-
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      errors.push("Password must contain at least one special character");
-    }
-
-    setPasswordError(errors.join("\n"));
-    if (errors.length > 0) {
-      // Open the modal if there are errors
-      setModalOpen(true);
-    } else {
-      try {
-        // Send registration data to the server using Axios
-        const response = await axios.post("http://localhost:3001/register", {
-          username,
-          password,
-          email,
-        });
-
-        // Reset form fields and close modal on successful registration
-        setUsername("");
-        setPassword("");
-        setEmail("");
-        setModalOpen(false);
-
-        // You can handle the server response as needed
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error:", error);
-        // Handle errors, e.g., show an error message to the user
+      // You can handle the server response as needed
+      console.log(response.data);
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        const { data } = error.response;
+        setRegistrationError(
+          data.error || "Registration failed: Username Taken"
+        );
+      } else if (error.request) {
+        // The request was made but no response was received
+        setRegistrationError("No response received from the server");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setRegistrationError("Error setting up the request");
       }
     }
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const handleUsernameChange = () => {
+    // Reset registration error when the username changes
+    setRegistrationError("");
   };
 
   return (
     <StarryNight>
       <div className="w-full min-h-screen flex justify-center items-center bg-gray-900">
         <div className="relative w-80 h-96 bg-gray-800 rounded-lg overflow-hidden">
-          <div className="absolute w-80 h-96 bg-gradient-to-r from-fuchsia-500 via-fuchsia-800 to-transparent -top-1/2 -left-1/2 animate-spin-slow origin-bottom-right bg-gradient-spin"></div>
-
-          <div className="absolute w-80 h-96 bg-gradient-to-r from-fuchsia-500 via-fuchsia-800 to-transparent -top-1/2 -left-1/2 animate-spin-slow origin-bottom-right bg-gradient-spin"></div>
-
           <div className="absolute inset-1 bg-gray-950 rounded-lg z-10 p-5">
             <h1 className="text-4xl text-center mb-6 animate-rainbow">
               Registration
             </h1>
+
+            {/* Display registration error message */}
+            {registrationError && (
+              <p className="text-red-500 text-center mb-4">
+                {registrationError}
+              </p>
+            )}
 
             <form action="">
               <div className="relative my-4">
@@ -183,24 +171,6 @@ const Registration = () => {
             </form>
           </div>
         </div>
-        {modalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gray-700 opacity-75"></div>
-            <div className="z-10 bg-white p-8 rounded-md absolute w-80">
-              {passwordError.split("\n").map((error, index) => (
-                <p key={index} className="text-red-500 text-center">
-                  {error}
-                </p>
-              ))}
-              <button
-                className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md"
-                onClick={closeModal}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </StarryNight>
   );
