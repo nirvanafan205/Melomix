@@ -2,15 +2,18 @@
 // BrowserRouter, Routes, and Route is used for client-side routing
 import ReactDOM from "react-dom"; // Correct the import statement
 import "./style.css";
-import LandingPage from './pages/landing-page/LandingPage';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LandingPage from './pages/landing-page/LandingPage';
+import Dashboard from './components/Dashboard';
 // serves as the root component of the application
 const App = () => {
 
   return (
-    <div>
-      <Dashboard/>
-    </div>
+      <div>
+        <LandingPage />
+        <Dashboard />
+      </div>
   )
 };
 

@@ -27,8 +27,8 @@
 
 .carousel-img{
     object-fit: cover;
-    width:80%;
-    height: 90%;
+    width:90%;
+    height: 450px;
     display: block;
     border-radius: 5%;
     margin: 0 auto;
@@ -60,12 +60,12 @@
 }
 
 .carousel-control-prev{
-    position: relative; 
+    position: absolute; 
     transform: translateX(-50%);
 }
 
 .carousel-control-next{
-    position: relative; 
+    position: absolute; 
     transform: translateX(50%);
 }
 

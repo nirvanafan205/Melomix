@@ -5,15 +5,11 @@ import './LandingPageStyle.css';
 
 
 const LandingPage = () => {
+
+
+  //list of artist names here for the carousel
   const artists = [
-    { id: 1, name: "Artist One", portraitUrl: "https://picsum.photos/200/300?random=1" },
-    { id: 2, name: "Artist Two", portraitUrl: "https://picsum.photos/200/300?random=2" },
-    { id: 3, name: "Artist Three", portraitUrl: "https://picsum.photos/200/300?random=3" },
-    { id: 4, name: "Artist Four", portraitUrl: "https://picsum.photos/200/300?random=4" },
-    { id: 5, name: "Artist Five", portraitUrl: "https://picsum.photos/200/300?random=5" },
-    { id: 6, name: "Artist Six", portraitUrl: "https://picsum.photos/200/300?random=6" },
-    { id: 7, name: "Artist Seven", portraitUrl: "https://picsum.photos/200/300?random=7" },
-    { id: 8, name: "Artist Eight", portraitUrl: "https://picsum.photos/200/300?random=8" },
+    "smash mouth", "sublime", "skrillex", "acdc", "beatles", "drake"
   ];
 
 
@@ -43,12 +39,12 @@ const LandingPage = () => {
         </Col>
 
         {/* featured artist section with carousel */}
-        <Col md={5} className="mb-3 d-flex">
+        <Col md={5} className="mb-3 d-flex" >
           <Card className="featured-card flex-grow-1 d-flex rounded-4">
             <Card.Body className="d-flex flex-column">
               <Card.Title>Featured Artist</Card.Title>
               <div className="flex-grow-1">
-                <ArtistCarousel artists={artists} accessToken={1234} />
+                <ArtistCarousel artists={artists} />
               </div>
               <Card.Text>
                 Some text about the featured artist.
