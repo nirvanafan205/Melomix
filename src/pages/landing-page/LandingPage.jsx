@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import ArtistCarousel from '../../components/carousel-stuff/ArtistCarousel';
+
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import './LandingPageStyle.css';
 
 
@@ -27,7 +31,7 @@ const LandingPage = () => {
             <Card.Body className="d-flex flex-column">
               <Card.Title>Listen to New Music</Card.Title>
               <Card.Text className="flex-grow-1">
-              Elevate your playlist with MELOMIX — where music comes alive. Sign up today and tune into the rhythm of innovation and inspiration.
+                Elevate your playlist with MELOMIX — where music comes alive. Sign up today and tune into the rhythm of innovation and inspiration.
               </Card.Text>
               <Row>
                 <Col className="text-center">

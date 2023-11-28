@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom"; // Correct the import statement
 import LandingPage from './pages/landing-page/LandingPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./loginPage";
 import Registration from "./registrationPage";
