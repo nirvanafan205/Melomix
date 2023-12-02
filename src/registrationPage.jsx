@@ -10,9 +10,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import StarryNight from "./components/starryNight";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Registration = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,6 +89,11 @@ const Registration = () => {
 
         // Show success notification
         showNotification(response.data.message, "success");
+        // Delay the navigation by 5 seconds
+        setTimeout(() => {
+          // Use navigate instead of history.push
+          navigate("/");
+        }, 5000);
       } catch (error) {
         if (error.response && error.response.status === 400) {
           // Show username exists notification
