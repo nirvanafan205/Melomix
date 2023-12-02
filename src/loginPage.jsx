@@ -6,6 +6,7 @@ import {
   faUnlock,
   faHouse,
   faGears,
+  faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import StarryNight from "./components/starryNight";
@@ -31,7 +32,7 @@ const LoginPage = () => {
             <form action="">
               <div className="relative my-4">
                 <input
-                  type="email"
+                  type="text"
                   className="block w-72 py-2.5 px-0 text-sm text-indigo-800 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-grey-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
                   placeholder=""
                 />
@@ -45,7 +46,7 @@ const LoginPage = () => {
                   htmlFor=""
                   className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6  "
                 >
-                  Your Email
+                  Your Username
                 </label>
               </div>
               <div className="relative my-4">
@@ -92,8 +93,13 @@ const LoginPage = () => {
                 </Link>
 
                 <FontAwesomeIcon
+                  icon={faArrowRightToBracket}
+                  className="text-3xl text-emerald-300 ml-16 hover:text-cyan-400"
+                />
+
+                <FontAwesomeIcon
                   icon={faGears}
-                  className="text-3xl text-emerald-300 ml-32 hover:text-cyan-400"
+                  className="text-3xl text-emerald-300 ml-16 hover:text-cyan-400"
                 />
               </div>
             </form>
