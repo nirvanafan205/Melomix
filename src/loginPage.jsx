@@ -101,10 +101,12 @@ const LoginPage = () => {
                   className="tw-text-3xl tw-text-emerald-300 tw-ml-16 tw-hover:text-cyan-400"
                 />
 
-                <FontAwesomeIcon
-                  icon={faGears}
-                  className="tw-text-3xl tw-text-emerald-300 tw-ml-16 tw-hover:text-cyan-400"
-                />
+                <Link to="/settings">
+                  <FontAwesomeIcon
+                    icon={faGears}
+                    className="tw-text-3xl tw-text-emerald-300 tw-ml-16 tw-hover:text-cyan-400"
+                  />
+                </Link>
               </div>
             </form>
           </div>
