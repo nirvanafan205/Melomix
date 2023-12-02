@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import StarryNight from "./components/starryNight";
 
-const LoginPage = () => {
+const Settings = () => {
   const [isChangeUsernameModalOpen, setChangeUsernameModalOpen] =
     useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +23,6 @@ const LoginPage = () => {
 
   const closeChangeUsernameModal = () => {
     setChangeUsernameModalOpen(false);
-    // Reset input fields when closing the modal
     setNewUsername("");
     setPassword("");
   };
@@ -33,9 +32,6 @@ const LoginPage = () => {
   };
 
   const handleSaveChanges = () => {
-    // Add logic to save changes (update username) here
-    // ...
-    // Close the modal after saving changes
     closeChangeUsernameModal();
   };
 
@@ -176,4 +172,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Settings;

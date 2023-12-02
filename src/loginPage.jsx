@@ -8,14 +8,41 @@ import {
   faGears,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import StarryNight from "./components/starryNight";
 
 const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:3001/login", {
+        username: username,
+        password: password,
+      });
+
+      // If login is successful, navigate to "/"
+      navigate("/");
+    } catch (error) {
+      // If login fails, show an error modal
+      console.error("Error logging in:", error);
+      setError("Error logging in. Please try again."); // Set the error message
+    }
+  };
+
+  const closeErrorModal = () => {
+    setError(null);
   };
 
   return (
@@ -31,13 +58,15 @@ const LoginPage = () => {
               Login
             </h1>
 
-            <form action="">
+            <form onSubmit={handleLogin}>
               <div className="tw-relative tw-my-4">
                 <input
                   type="text"
                   style={{ outline: "none" }}
                   className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer"
                   placeholder=""
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
 
                 <FontAwesomeIcon
@@ -68,6 +97,8 @@ const LoginPage = () => {
                   } tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-gray-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-pt-10`}
                   style={{ outline: "none" }}
                   placeholder=""
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <label
@@ -99,6 +130,7 @@ const LoginPage = () => {
                 <FontAwesomeIcon
                   icon={faArrowRightToBracket}
                   className="tw-text-3xl tw-text-emerald-300 tw-ml-16 tw-hover:text-cyan-400"
+                  onClick={handleLogin}
                 />
 
                 <Link to="/settings">
@@ -108,6 +140,24 @@ const LoginPage = () => {
                   />
                 </Link>
               </div>
+
+              {error && (
+                <div className="tw-fixed tw-inset-0 tw-flex tw-items-center tw-justify-center">
+                  <div
+                    className="tw-bg-black tw-bg-opacity-50 tw-fixed tw-inset-0"
+                    onClick={closeErrorModal}
+                  ></div>
+                  <div className="tw-bg-white tw-rounded tw-p-4 tw-max-w-md tw-w-full tw-z-50">
+                    <p className="tw-text-red-500">{error}</p>
+                    <button
+                      className="tw-mt-4 tw-bg-red-500 tw-text-white tw-py-2 tw-px-4 tw-rounded"
+                      onClick={closeErrorModal}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </div>

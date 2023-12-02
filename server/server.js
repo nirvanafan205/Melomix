@@ -72,6 +72,39 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// Login endpoint
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Check if the username exists
+    const user = await userModel.findOne({ name: username });
+
+    if (!user) {
+      // If the username does not exist, return an error message
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Check if the provided password matches the stored hashed password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      // If the passwords do not match, return an error message
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // You can include additional user data in the response if needed
+    res.json({
+      message: "Login successful",
+      username: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
