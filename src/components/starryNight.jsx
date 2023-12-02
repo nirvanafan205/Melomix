@@ -2,17 +2,17 @@ import React from "react";
 
 const StarryNight = ({ children }) => {
   return (
-    <div className="relative w-full h-screen">
+    <div className="tw-relative tw-w-full tw-h-screen">
       <div
-        className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-black bg-repeat bg-center z-0"
+        className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-w-full tw-h-full tw-bg-black tw-bg-repeat tw-bg-center tw-z-0"
         style={{ backgroundImage: 'url("stars.png")' }}
       ></div>
       <div
-        className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-transparent bg-repeat bg-center z-1 animate-move-twinkle-back"
+        className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-w-full tw-h-full tw-bg-transparent tw-bg-repeat tw-bg-center tw-z-1 tw-animate-move-twinkle-back"
         style={{ backgroundImage: 'url("twinkling.png")' }}
       ></div>
       <div
-        className="absolute top-0 left-0 right-0 bottom-0 w-full h-full clouds bg-clouds opacity-40 animate-move-clouds"
+        className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-w-full tw-h-full tw-clouds tw-bg-clouds tw-opacity-40 tw-animate-move-clouds"
         style={{ backgroundImage: 'url("clouds.png")' }}
       ></div>
       {children}

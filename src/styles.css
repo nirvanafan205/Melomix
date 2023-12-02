@@ -4,7 +4,7 @@
 @import 'tailwindcss/utilities';
 
 /* Define a CSS animation */
-@keyframes rotate {
+@keyframes tw-rotate {
     0% {
         transform: rotate(0deg);
     }
@@ -15,12 +15,12 @@
 }
 
 /* Apply the animation to your gradient background */
-.bg-gradient-spin {
-    animation: rotate 5s linear infinite;
+.tw-bg-gradient-spin {
+    animation: tw-rotate 5s linear infinite;
     /* Adjust the duration and timing function as needed */
 }
 
-@keyframes rainbow {
+@keyframes tw-rainbow {
 
     0%,
     100% {
@@ -52,14 +52,14 @@
     }
 }
 
-.animate-rainbow {
-    animation: rainbow 9s infinite linear;
+.tw-animate-rainbow {
+    animation: tw-rainbow 9s infinite linear;
 }
 
 /*  this is for login starry night */
 
 /* Animation for moving twinkling image to the left */
-@keyframes moveTwinkleLeft {
+@keyframes tw-moveTwinkleLeft {
     0% {
         background-position: 0 0;
     }
@@ -69,11 +69,11 @@
     }
 }
 
-.animate-move-twinkle-back {
-    animation: moveTwinkleLeft 50s linear infinite; /* Adjust the duration as needed */
+.tw-animate-move-twinkle-back {
+    animation: tw-moveTwinkleLeft 50s linear infinite; /* Adjust the duration as needed */
 }
 
-@keyframes moveCloudsRight {
+@keyframes tw-moveCloudsRight {
     0% {
         background-position: 0 0;
     }
@@ -83,6 +83,6 @@
     }
 }
 
-.animate-move-clouds {
-    animation: moveCloudsRight 50s linear infinite; /* Adjust the duration as needed */
+.tw-animate-move-clouds {
+    animation: tw-moveCloudsRight 50s linear infinite; /* Adjust the duration as needed */
 }
