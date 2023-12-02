@@ -24,6 +24,10 @@
     height:100%;
 }
 
+.carousel-portrait h3{
+    font-size: 25px;
+}
+
 
 .carousel-img{
     object-fit: cover;

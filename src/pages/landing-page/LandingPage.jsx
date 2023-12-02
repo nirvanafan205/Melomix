@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import ArtistCarousel from "../../components/carousel-stuff/ArtistCarousel";
 import "./LandingPageStyle.css";
+import StarryNight from "../../components/starryNight";
 
 const LandingPage = () => {
   //list of artist names here for the carousel
@@ -15,10 +16,11 @@ const LandingPage = () => {
   ];
 
   return (
+    <StarryNight>
     <Container>
       {/* Footer */}
       <Row className="melomix-logo-banner my-4">
-        <h1> MELOMIX</h1>
+        <h1> melomix</h1>
       </Row>
 
       <Row className=" my-4 d-flex align-items-stretch">
@@ -32,13 +34,13 @@ const LandingPage = () => {
                 Sign up today and tune into the rhythm of innovation and
                 inspiration.
               </Card.Text>
-              <Row>
+              {/* <Row>
                 <Col className="text-center">
                   <Button variant="primary" size="lg">
                     Login with Spotify{" "}
                   </Button>
                 </Col>
-              </Row>
+              </Row> */}
             </Card.Body>
           </Card>
         </Col>
@@ -51,7 +53,7 @@ const LandingPage = () => {
               <div className="flex-grow-1">
                 <ArtistCarousel artists={artists} />
               </div>
-              <Card.Text>Some text about the featured artist.</Card.Text>
+              {/* <Card.Text>Some text about the featured artist.</Card.Text> */}
             </Card.Body>
           </Card>
         </Col>
@@ -61,7 +63,7 @@ const LandingPage = () => {
       {/*  */}
 
       {/* Footer */}
-      <footer className="footer mt-5 py-3 rounded-4">
+      {/* <footer className="footer mt-5 py-3 rounded-4"> NOT WORKING BUT PROBABLY SHOULD MAKE INTO ITS OWN COMPONENET
         <Container>
           <Row>
             <Col md={4} className="footer-about">
@@ -94,8 +96,9 @@ const LandingPage = () => {
             </Col>
           </Row>
         </Container>
-      </footer>
+      </footer> */}
     </Container>
+    </StarryNight>
   );
 };
 
