@@ -86,3 +86,46 @@
 .tw-animate-move-clouds {
     animation: tw-moveCloudsRight 50s linear infinite; /* Adjust the duration as needed */
 }
+#exclusive-container {
+    width: 100%;
+    height: 80pt;
+}
+
+#nav-row {
+    background-image: url(https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg);
+    box-shadow: 0 0 1.5rem #bc13fe, 0 0 1.5rem #bc13fe, inset 0 0 #bc13fe;
+    animation: colorShift 15s infinite; /* Adjust the duration as needed */
+}
+
+@keyframes colorShift {
+    0% {
+        color: #482FF5;
+        box-shadow: 0 0 1.5rem #482FF5, 0 0 1.5rem #482FF5, inset 0 0 #482FF5;
+    }
+    50% {
+        color: #ff69b4; /* Pink color */
+        box-shadow: 0 0 1.5rem #F555D4, 0 0 1.5rem #F555D4, inset 0 0 #F555D4;
+    }
+    100% {
+        color: #482FF5; /* Back to purple color */
+        box-shadow: 0 0 1.5rem #482FF5, 0 0 1.5rem #482FF5, inset 0 0 #482FF5;
+    }
+}
+
+@keyframes #nav-row{
+
+}
+
+.nav-link{
+    font-size:x-large;
+    font-family:Arial, Helvetica, sans-serif ;
+    font-weight: bold;
+    text-decoration: none;
+    color:aliceblue;
+    padding: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.nav-link:hover{
+    color: #ca45ff;
+}
