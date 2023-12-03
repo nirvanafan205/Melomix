@@ -1,4 +1,3 @@
-// spotifyApi.js
 const CID = "b8c6b5a6bf1647ab89b7cc581e48ff8b";
 const CSECRET = "dd294268f14c4f23949c73d19d9c5609";
 
@@ -11,7 +10,8 @@ async function getAccessToken() {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: `grant_type=client_credentials&client_id=${CID}&client_secret=${CSECRET}`,
+    body: `grant_type=client_credentials&client_id=${CID}&client_secret=${CSECRET}&scope=user-read-playback-state`,
+
   };
 
   const response = await fetch("https://accounts.spotify.com/api/token", authorization);
