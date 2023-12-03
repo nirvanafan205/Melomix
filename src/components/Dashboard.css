@@ -1,62 +1,83 @@
 /* Dashboard.css */
 
-:root {
-    --neon-primary: #ff00ff;   /* Neon Pink */
-    --neon-secondary: #00ffff; /* Neon Blue */
-    --neon-accent: #00ff00;    /* Neon Green */
+.dashboard-container {
+  color: var(--neon-primary);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
+  background-image: url('./stars.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./stars.png'); /* Adjust the path based on your file structure */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dashboard-container {
+  color: var(--neon-primary);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  body { 
-    text-align: center;
+  to {
+    opacity: 1;
   }
-  
-  h2 {
-    color: var(--neon-secondary);
-  }
-  
-  form {
-    margin: 20px 0;
-  }
-  
-  input {
-    color: var(--neon-primary);
-    padding: 5px;
-  }
-  
-  button {
-    background-color: var(--neon-accent);
-    color: #222;
-    padding: 5px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  h3 {
-    color: var(--neon-accent);
-    margin-top: 20px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 20px;
-  }
-  
-  img {
-    width: 200px;
-  }
-  
-  p {
-    color: var(--neon-secondary);
-  }
-  
-  iframe {
-    width: 300px;
-    height: 80px;
-    border: 0;
-  }
-  
-  /* Add more styles as needed */
+}
+
+.albums-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.album-container {
+  margin: 20px;
+  text-align: center;
+}
+
+.album-container img {
+  width: 100%;
+  max-width: 300px; /* Adjust the max-width to make the albums larger */
+  border-radius: 10px;
+}
+
+.album-container p {
+  color: var(--neon-secondary);
+  margin-top: 10px;
+}
+
+.album-container .btn-purple {
+  background-color: var(--neon-accent);
+  color: #bd24c2;
+  margin-top: 10px;
+}
+
+.album-container h3 {
+  color: var(--neon-accent);
+  margin-top: 20px;
+}
+
+.album-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.album-container li {
+  margin-bottom: 20px;
+}
+
+.album-container iframe {
+  width: 300px;
+  height: 80px;
+  border: 0;
+}

@@ -1,5 +1,8 @@
+// Dashboard.jsx
 import React, { useState } from 'react';
 import { callSpotifyAPI } from '../api/spotifyAPI';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import './Dashboard.css'; // Import your custom styles
 
 export default function Dashboard() {
   const [search, setSearch] = useState('');
@@ -26,42 +29,58 @@ export default function Dashboard() {
     setSelectedTrack(track);
   };
 
+  const neonStyles = {
+    primary: '#ff00ff',   // Neon Pink
+    secondary: '#00ffff', // Neon Blue
+    accent: '#800080',    // Neon Purple
+  };
+
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h2>Search</h2>
+    <div className="dashboard-container container text-center mt-5">
+      <h2 className="text-secondary">Search</h2>
       <form onSubmit={handleSearch}>
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="form-control"
+          style={{ color: neonStyles.primary }}
         />
-        <button type="submit">Search</button>
+        <button
+          type="submit"
+          className="btn btn-purple mt-3"
+        >
+          Search
+        </button>
       </form>
 
-      <div>
-        <h3>Tracks</h3>
+      <div className="albums-container">
         {trackArray.length > 0 ? (
-          <ul>
-            {trackArray.map((track) => (
-              <li key={track.id}>
-                <div>
-                  <img width="200" src={track.album.images[0].url} alt={track.name} />
-                  <p>{track.name}</p>
-                  <button onClick={() => playTrack(track)}>Play</button>
-                </div>
-              </li>
-            ))}
-          </ul>
+          trackArray.map((track) => (
+            <div key={track.id} className="album-container">
+              <img
+                src={track.album.images[0].url}
+                alt={track.name}
+                className="img-fluid rounded"
+              />
+              <h3 className="text-secondary mt-3">{track.name}</h3>
+              <button
+                onClick={() => playTrack(track)}
+                className="btn btn-purple"
+              >
+                Play
+              </button>
+            </div>
+          ))
         ) : (
-          <p>No tracks found</p>
+          <p className="text-secondary">No tracks found</p>
         )}
       </div>
 
       <div>
-        <h3>Selected Track</h3>
+        <h3 className="text-secondary mt-4">Selected Track</h3>
         {selectedTrack && (
-          <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', textAlign: 'center' }}>
-          
+          <div className="position-fixed bottom-0 left-0 w-100 text-center">
             <iframe
               src={`https://open.spotify.com/embed/track/${selectedTrack.id}`}
               width="300"
