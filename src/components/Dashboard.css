@@ -1,0 +1,62 @@
+/* Dashboard.css */
+
+:root {
+    --neon-primary: #ff00ff;   /* Neon Pink */
+    --neon-secondary: #00ffff; /* Neon Blue */
+    --neon-accent: #00ff00;    /* Neon Green */
+  }
+  
+  body { 
+    text-align: center;
+  }
+  
+  h2 {
+    color: var(--neon-secondary);
+  }
+  
+  form {
+    margin: 20px 0;
+  }
+  
+  input {
+    color: var(--neon-primary);
+    padding: 5px;
+  }
+  
+  button {
+    background-color: var(--neon-accent);
+    color: #222;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  h3 {
+    color: var(--neon-accent);
+    margin-top: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 20px;
+  }
+  
+  img {
+    width: 200px;
+  }
+  
+  p {
+    color: var(--neon-secondary);
+  }
+  
+  iframe {
+    width: 300px;
+    height: 80px;
+    border: 0;
+  }
+  
+  /* Add more styles as needed */
