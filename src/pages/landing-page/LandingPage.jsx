@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import ArtistCarousel from "../../components/carousel-stuff/ArtistCarousel";
 import "./LandingPageStyle.css";
-import StarryNight from "../../components/starryNight";
 
 const LandingPage = () => {
   //list of artist names here for the carousel
@@ -16,7 +15,6 @@ const LandingPage = () => {
   ];
 
   return (
-    <StarryNight>
     <Container>
       {/* Footer */}
       <Row className="melomix-logo-banner my-4">
@@ -98,7 +96,6 @@ const LandingPage = () => {
         </Container>
       </footer> */}
     </Container>
-    </StarryNight>
   );
 };
 

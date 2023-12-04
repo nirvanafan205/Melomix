@@ -10,6 +10,7 @@ import Settings from "./Settings";
 import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
+import StarryNight from "./components/starryNight";
 
 // serves as the root component of the application
 function App(){
@@ -35,7 +36,7 @@ function App(){
         </div>
       </div>
     </div>
-
+    <StarryNight>
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
@@ -43,6 +44,7 @@ function App(){
       <Route path="/registration" element={<Registration />} />
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
+    </StarryNight>
   </>
   );
 }

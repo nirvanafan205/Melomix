@@ -100,15 +100,15 @@
 @keyframes colorShift {
     0% {
         color: #482FF5;
-        box-shadow: 0 0 1.5rem #482FF5, 0 0 1.5rem #482FF5, inset 0 0 #482FF5;
+        box-shadow: 0 0 1.1rem #482FF5, 0 0 1.1rem #482FF5, inset 0 0 #000000;
     }
     50% {
         color: #ff69b4; /* Pink color */
-        box-shadow: 0 0 1.5rem #F555D4, 0 0 1.5rem #F555D4, inset 0 0 #F555D4;
+        box-shadow: 0 0 1.1rem #F555D4, 0 0 1.1rem #F555D4, inset 0 0 #000000;
     }
     100% {
         color: #482FF5; /* Back to purple color */
-        box-shadow: 0 0 1.5rem #482FF5, 0 0 1.5rem #482FF5, inset 0 0 #482FF5;
+        box-shadow: 0 0 1.1rem #482FF5, 0 0 1.1rem #482FF5, inset 0 0 #000000;
     }
 }
 

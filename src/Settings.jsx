@@ -36,7 +36,6 @@ const Settings = () => {
   };
 
   return (
-    <StarryNight>
       <div className="tw-w-full tw-min-h-screen tw-flex tw-justify-center tw-items-center tw-bg-gray-900">
         <div className="tw-relative tw-w-80 tw-h-96 tw-bg-gray-800 tw-rounded-lg tw-overflow-hidden">
           <div className="tw-absolute tw-w-80 tw-h-96 tw-bg-gradient-to-r tw-from-fuchsia-500 tw-via-fuchsia-800 tw-to-transparent tw-top-[-50%] tw-left-[-50%] tw-animate-spin-slow tw-origin-bottom-right tw-bg-gradient-spin"></div>
@@ -168,7 +167,6 @@ const Settings = () => {
           )}
         </div>
       </div>
-    </StarryNight>
   );
 };
 
