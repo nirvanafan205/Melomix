@@ -36,7 +36,6 @@ function App(){
         </div>
       </div>
     </div>
-    <StarryNight>
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
@@ -44,7 +43,6 @@ function App(){
       <Route path="/registration" element={<Registration />} />
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
-    </StarryNight>
   </>
   );
 }

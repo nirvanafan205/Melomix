@@ -88,29 +88,30 @@
 }
 #exclusive-container {
     width: 100%;
-    height: 80pt;
+    height: 65pt;
 }
 
 #nav-row {
     background-image: url(https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg);
-    box-shadow: 0 0 1.5rem #bc13fe, 0 0 1.5rem #bc13fe, inset 0 0 #bc13fe;
     animation: colorShift 15s infinite; /* Adjust the duration as needed */
 }
 
 @keyframes colorShift {
     0% {
-        color: #482FF5;
-        box-shadow: 0 0 1.1rem #482FF5, 0 0 1.1rem #482FF5, inset 0 0 #000000;
+        height: 100%;
+        border-bottom: 0.2rem solid #482FF5;
     }
     50% {
-        color: #ff69b4; /* Pink color */
-        box-shadow: 0 0 1.1rem #F555D4, 0 0 1.1rem #F555D4, inset 0 0 #000000;
+        height: 100%;
+        border-bottom: 0.2rem solid #F555D4;
     }
     100% {
-        color: #482FF5; /* Back to purple color */
-        box-shadow: 0 0 1.1rem #482FF5, 0 0 1.1rem #482FF5, inset 0 0 #000000;
+        height: 100%;
+        border-bottom: 0.2rem solid #482FF5;
     }
 }
+
+
 
 .nav-link{
     font-size:x-large;
