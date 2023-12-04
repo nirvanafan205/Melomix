@@ -114,6 +114,7 @@
 
 
 .nav-link{
+    text-align: center;
     font-size:x-large;
     font-family:Arial, Helvetica, sans-serif ;
     font-weight: bold;
@@ -126,3 +127,7 @@
 .nav-link:hover{
     color: #ca45ff;
 }
+.active-link {
+    color: #865DFF !important;
+    
+  }

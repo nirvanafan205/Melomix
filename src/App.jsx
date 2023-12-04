@@ -1,49 +1,59 @@
-// importing React and ReactDOM libraryies
-// BrowserRouter, Routes, and Route is used for client-side routing
-import React from "react";
-import { Route, Routes } from 'react-router';
+import React, { useEffect } from "react";
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import LandingPage from "./pages/landing-page/LandingPage";
 import Login from "./loginPage";
 import Registration from "./registrationPage";
 import Dashboard from "./components/Dashboard";
 import Settings from "./Settings";
-import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import StarryNight from "./components/starryNight";
 
-// serves as the root component of the application
-function App(){
-  return(
+function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Add a class to the body based on the active link
+    document.body.className = location.pathname.replace("/", "") || "home";
+  }, [location.pathname]);
+
+  return (
     <>
-    <div id="exclusive-container" class="container-fluid">
-      <div id="nav-row" class="row">
-        <div class="col-4">
-        </div>
-        <div class="col">
-          <Link to={"/"} className="nav-link">Home</Link>
-        </div>
-        <div class="col">
-          <Link to={"/dashboard"} className="nav-link">Dashboard</Link>
-        </div>
-        <div class="col">
-          <Link to={"/login"} className="nav-link">Login</Link>
-        </div>
-        <div class="col">
-          <Link to={"/settings"} className="nav-link">Settings</Link>
-        </div>
-        <div class="col-4">
+      <div id="exclusive-container" className="container-fluid">
+        <div id="nav-row" className="row">
+          <div className="col-4"></div>
+          <div className="col">
+            <Link to={"/"} className={`nav-link ${location.pathname === '/' ? 'active-link' : ''}`}>
+              Home
+            </Link>
+          </div>
+          <div className="col">
+            <Link to={"/dashboard"} className={`nav-link ${location.pathname === '/dashboard' ? 'active-link' : ''}`}>
+              Dashboard
+            </Link>
+          </div>
+          <div className="col">
+            <Link to={"/login"} className={`nav-link ${location.pathname === '/login' ? 'active-link' : ''}`}>
+              Login
+            </Link>
+          </div>
+          <div className="col">
+            <Link to={"/settings"} className={`nav-link ${location.pathname === '/settings' ? 'active-link' : ''}`}>
+              Settings
+            </Link>
+          </div>
+          <div className="col-4"></div>
         </div>
       </div>
-    </div>
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/registration" element={<Registration />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Routes>
-  </>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </>
   );
 }
+
 export default App;
