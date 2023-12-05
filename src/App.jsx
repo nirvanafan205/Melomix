@@ -4,12 +4,15 @@ import LandingPage from "./pages/landing-page/LandingPage";
 import Login from "./loginPage";
 import Registration from "./registrationPage";
 import Dashboard from "./components/Dashboard";
+import Playlist from "./components/Playlist";
 import Settings from "./Settings";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import StarryNight from "./components/starryNight";
 
 function App() {
+const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -27,6 +30,15 @@ function App() {
               Home
             </Link>
           </div>
+          {/* Render only if User is logged in */}
+          {!isUserLoggedIn && (
+            // Playlists
+            <div className="col">
+              <Link to={"/playlists"} className={`nav-link ${location.pathname === '/playlists' ? 'active-link' : ''}`}>
+                Playlists
+              </Link>
+            </div>
+          )}
           <div className="col">
             <Link to={"/dashboard"} className={`nav-link ${location.pathname === '/dashboard' ? 'active-link' : ''}`}>
               Dashboard
@@ -51,6 +63,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path='/playlists' element={<Playlist />} />
       </Routes>
     </>
   );

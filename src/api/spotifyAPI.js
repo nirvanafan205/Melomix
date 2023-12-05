@@ -35,6 +35,52 @@ async function callSpotifyAPI(searchInput) {
   return tracks
 }
 
+// Get User
+async function getSpotifyUser() {
+  await getAccessToken();
+
+  const data = await fetch(`https://api.spotify.com/v1/me`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  const user = await data.json();
+
+  return user;
+}
+
+// Add to Playlist
+async function addToPlaylist(playlistID, trackID) {
+  await getAccessToken();
+
+  const data = await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?uris=spotify:track:${trackID}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  const result = await data.json();
+
+  return result;
+}
+
+// Get all Playlist
+async function getUserPlaylists() {
+  await getAccessToken();
+
+  const data = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  const result = await data.json();
+
+  return result;
+}
+
 async function getArtistTracks(artistID) {
   const data = await fetch(`https://api.spotify.com/v1/artists/${artistID}/top-tracks?market=US`, {
     headers: {
@@ -83,4 +129,4 @@ async function getArtistFromName(name, limit){
   return result;
 }
 
-export { getAccessToken, callSpotifyAPI, getArtistTracks, getArtistFromName };
+export { getAccessToken, callSpotifyAPI, getArtistTracks, getArtistFromName, getSpotifyUser, addToPlaylist, getUserPlaylists };
