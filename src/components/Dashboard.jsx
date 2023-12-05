@@ -122,7 +122,7 @@ export default function Dashboard() {
       <div>
         <h3 className="text-secondary mt-4">Selected Track</h3>
         {selectedTrack && (
-          <div className="position-fixed bottom-0 left-0 w-100 text-center">
+          <div className="position-fixed bottom-0 left-0 w-40 text-center">
             <iframe
               src={`https://open.spotify.com/embed/track/${selectedTrack.id}`}
               width="300"
