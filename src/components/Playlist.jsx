@@ -83,7 +83,7 @@ const Playlist = () => {
     <div className="container">
       {accessToken && (
         <div>
-          <h1 className='tw-text-zinc-50 tw-mt-5'>Your Playlists</h1>
+          <h1 className='tw-text-zinc-50 tw-mt-5 tw-animate-rainbow'>Your Playlists</h1>
           <ul>
             {playlists.map((playlist) => (
               <div key={playlist.id}>
@@ -102,12 +102,13 @@ const Playlist = () => {
           </ul>
           <input
             type="text"
-            className='tw-text-pink-500'
+            className='tw-text-pink-500 tw-border-2 tw-border-purple-500 tw-rounded-full tw-text-center tw-font-bold tw-outline-none' 
+            style={{width:'100%'}}
             placeholder="New Playlist Name"
             value={newPlaylistName}
             onChange={(e) => setNewPlaylistName(e.target.value)}
           />
-          <button onClick={createPlaylist}>Create Playlist</button>
+          <button className='tw-animate-rainbow' onClick={createPlaylist}>Create Playlist</button>
         </div>
       )}
     </div>
