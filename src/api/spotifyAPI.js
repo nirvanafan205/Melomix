@@ -48,23 +48,6 @@ async function getArtistTracks(artistID) {
 }
 
 
-// //for the carousel getting the artist like image and name, also other stuff, but Idk what to add for now
-// async function getArtistStuff(artistID) {
-//   await getAccessToken();
-
-//   const data = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, {
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`,
-//     }
-//   });
-
-//   const artistDetail = await data.json();
-
-//   console.log(artistDetail);
-
-//   return artistDetail;
-// }
-
 //get artist details from artist name for now
 //get artist from name, return a list of artist found
 async function getArtistFromName(name, limit){
