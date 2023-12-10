@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { callSpotifyAPI } from '../api/spotifyAPI';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import './Dashboard.css'; // Import your custom styles
+import MyFooter from './footer/footer';
 
 export default function Dashboard() {
   const [search, setSearch] = useState('');
@@ -25,14 +26,31 @@ export default function Dashboard() {
     }
   };
 
-  const playTrack = (track) => {
+  const playTrack = async (track) => {
     setSelectedTrack(track);
+    console.log("im testing: " + track.name);
+    await fetchSongLyrics(track.name); 
   };
 
   const neonStyles = {
     primary: '#ff00ff',   // Neon Pink
     secondary: '#00ffff', // Neon Blue
     accent: '#800080',    // Neon Purple
+  };
+
+  //trying lyrics stuff again
+  const fetchSongLyrics = async (songTitle) => {
+    const apiKey = "WQYU8B3IPk8PXyXVGNCc4HyyD9PM_Uu_BigiEbjN368PMbMaHJicYG6hg08gpSk6";
+    const url = `https://api.genius.com/search?q=${encodeURIComponent(songTitle)}&access_token=${apiKey}`;
+  
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+      console.log(data.response.hits[0]);
+    } catch (error) {
+      console.error('lyrics error:', error);
+    }
   };
 
   return (

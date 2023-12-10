@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import ArtistCarousel from "../../components/carousel-stuff/ArtistCarousel";
 import "./LandingPageStyle.css";
 import StarryNight from "../../components/starryNight";
+import MyFooter from "../../components/footer/footer";
 
 const LandingPage = () => {
   //list of artist names here for the carousel
@@ -61,44 +62,10 @@ const LandingPage = () => {
 
       {/* button */}
       {/*  */}
-
-      {/* Footer */}
-      {/* <footer className="footer mt-5 py-3 rounded-4"> NOT WORKING BUT PROBABLY SHOULD MAKE INTO ITS OWN COMPONENET
-        <Container>
-          <Row>
-            <Col md={4} className="footer-about">
-              <h3>About MELOMIX</h3>
-              <p>
-                MELOMIX is a premier music streaming service, bringing you the
-                best in music and connecting artists with their fans.
-              </p>
-            </Col>
-
-            <Col md={4} className="footer-social">
-              <h3>Follow Us</h3>
-              <ul>
-                <li>
-                  <a href="">Facebook</a>
-                </li>
-                <li>
-                  <a href="">Twitter</a>
-                </li>
-                <li>
-                  <a href="">Instagram</a>
-                </li>
-              </ul>
-            </Col>
-
-            <Col md={4} className="footer-contact">
-              <h3>Contact Us</h3>
-              <p>Email: support@melomix.com</p>
-              <p>Phone: +123 456 7890</p>
-            </Col>
-          </Row>
-        </Container>
-      </footer> */}
     </Container>
+    <MyFooter></MyFooter>
     </StarryNight>
+    
   );
 };
 

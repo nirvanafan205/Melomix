@@ -116,17 +116,3 @@ html body {
     text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
     transform: scale(1.1);
   }
-
-  .footer {
-    background-color: #1c1c1c;
-    color: #fff;
-  }
-  
-  .footer a {
-    color: #fff;
-  }
-  
-  .footer a:hover {
-    color: #c800ff;
-    text-decoration: none;
-  }

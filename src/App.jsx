@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import StarryNight from "./components/starryNight";
 
+import MyFooter from "./components/footer/footer"
+
 function App() {
   const location = useLocation();
 
@@ -52,8 +54,9 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+      
     </>
   );
 }
-
+//<MyFooter></MyFooter>
 export default App;
