@@ -40,16 +40,22 @@ export default function Dashboard() {
 
   //trying lyrics stuff again
   const fetchSongLyrics = async (songTitle) => {
-    const apiKey = "WQYU8B3IPk8PXyXVGNCc4HyyD9PM_Uu_BigiEbjN368PMbMaHJicYG6hg08gpSk6";
-    const url = `https://api.genius.com/search?q=${encodeURIComponent(songTitle)}&access_token=${apiKey}`;
+    const encodedSongTitle = encodeURIComponent(songTitle);
   
     try {
-      const response = await fetch(url);
+      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape/${encodedSongTitle}`);
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+  
       const data = await response.json();
+  
       console.log(data);
-      console.log(data.response.hits[0]);
+      return data;
     } catch (error) {
-      console.error('lyrics error:', error);
+      console.error('Error fetching song lyrics:', error);
+      return null; 
     }
   };
 

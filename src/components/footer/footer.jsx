@@ -4,7 +4,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone, faMusic } from '@fortawesome/free-solid-svg-icons';
 import './footer.css';
 
+import emailjs from 'emailjs-com';
+
 const MyFooter = () => {
+  // const [feedback, setFeedback] = useState('');
+
+  // const handleFeedbackChange = (e) => {
+  //   setFeedback(e.target.value);
+  // };
+
+  // const submitFeedback = (e) => {
+  //   e.preventDefault();
+
+  //   const templateParams = {
+  //     // email template parameters like message body, subject, etc.
+  //     feedback: feedback,
+  //     // you can add more parameters like user_email, user_name, etc.
+  //   };
+
+  //   emailjs.send('your_service_id', 'your_template_id', templateParams, 'your_user_id')
+  //     .then((response) => {
+  //       console.log('SUCCESS!', response.status, response.text);
+  //       // Here you can clear the form or give a success message
+  //     }, (err) => {
+  //       console.log('FAILED...', err);
+  //     });
+  // };
   return (
     <footer className="footer mt-5 py-3 rounded-4">
       <Container>
