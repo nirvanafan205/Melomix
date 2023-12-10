@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import StarryNight from "./components/starryNight";
 
-const LoginPage = () => {
+const LoginPage = ({ setLoggedInUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -32,12 +32,16 @@ const LoginPage = () => {
         password: password,
       });
 
-      // If login is successful, navigate to "/"
-      navigate("/");
+      // Update the state and navigate once the state is updated
+      setLoggedInUser(response.data.name);
+
+      // Use then to ensure navigation happens after the state is updated
+      navigate("/").then(() => {
+        console.log("Navigating to /");
+      });
     } catch (error) {
-      // If login fails, show an error modal
       console.error("Error logging in:", error);
-      setError("Error logging in. Please try again."); // Set the error message
+      setError("Error logging in. Please try again.");
     }
   };
 

@@ -1,6 +1,4 @@
-// importing React and ReactDOM libraryies
-// BrowserRouter, Routes, and Route is used for client-side routing
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import LandingPage from "./pages/landing-page/LandingPage";
 import Login from "./loginPage";
@@ -11,13 +9,25 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
-// serves as the root component of the application
 const App = () => {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <LandingPage
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={<Login setLoggedInUser={setLoggedInUser} />}
+        />
         <Route path="/settings" element={<Settings />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="dashboard" element={<Dashboard />} />

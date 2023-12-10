@@ -4,7 +4,8 @@ import ArtistCarousel from "../../components/carousel-stuff/ArtistCarousel";
 import "./LandingPageStyle.css";
 import StarryNight from "../../components/starryNight";
 
-const LandingPage = () => {
+const LandingPage = ({ loggedInUser }) => {
+  console.log("loggedInUser in LandingPage:", loggedInUser);
   //list of artist names here for the carousel
   const artists = [
     "smash mouth",
@@ -17,53 +18,54 @@ const LandingPage = () => {
 
   return (
     <StarryNight>
-    <Container>
-      {/* Footer */}
-      <Row className="melomix-logo-banner my-4">
-        <h1> melomix</h1>
-      </Row>
+      <Container>
+        {/* Greeting and Logout button */}
+        <Row className="melomix-logo-banner my-4">
+          <h1>melomix</h1>
+          {loggedInUser && <div className="ml-3">Hello, {loggedInUser}</div>}
+        </Row>
 
-      <Row className=" my-4 d-flex align-items-stretch">
-        {/* website introduction*/}
-        <Col md={7} className="mb-3 d-flex">
-          <Card className="listen-now-card flex-grow-1 d-flex rounded-4">
-            <Card.Body className="d-flex flex-column">
-              <Card.Title>Listen to New Music</Card.Title>
-              <Card.Text className="flex-grow-1">
-                Elevate your playlist with MELOMIX — where music comes alive.
-                Sign up today and tune into the rhythm of innovation and
-                inspiration.
-              </Card.Text>
-              {/* <Row>
+        <Row className=" my-4 d-flex align-items-stretch">
+          {/* website introduction*/}
+          <Col md={7} className="mb-3 d-flex">
+            <Card className="listen-now-card flex-grow-1 d-flex rounded-4">
+              <Card.Body className="d-flex flex-column">
+                <Card.Title>Listen to New Music</Card.Title>
+                <Card.Text className="flex-grow-1">
+                  Elevate your playlist with MELOMIX — where music comes alive.
+                  Sign up today and tune into the rhythm of innovation and
+                  inspiration.
+                </Card.Text>
+                {/* <Row>
                 <Col className="text-center">
                   <Button variant="primary" size="lg">
                     Login with Spotify{" "}
                   </Button>
                 </Col>
               </Row> */}
-            </Card.Body>
-          </Card>
-        </Col>
+              </Card.Body>
+            </Card>
+          </Col>
 
-        {/* featured artist section with carousel */}
-        <Col md={5} className="mb-3 d-flex">
-          <Card className="featured-card flex-grow-1 d-flex rounded-4">
-            <Card.Body className="d-flex flex-column">
-              <Card.Title>Featured Artist</Card.Title>
-              <div className="flex-grow-1">
-                <ArtistCarousel artists={artists} />
-              </div>
-              {/* <Card.Text>Some text about the featured artist.</Card.Text> */}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+          {/* featured artist section with carousel */}
+          <Col md={5} className="mb-3 d-flex">
+            <Card className="featured-card flex-grow-1 d-flex rounded-4">
+              <Card.Body className="d-flex flex-column">
+                <Card.Title>Featured Artist</Card.Title>
+                <div className="flex-grow-1">
+                  <ArtistCarousel artists={artists} />
+                </div>
+                {/* <Card.Text>Some text about the featured artist.</Card.Text> */}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
 
-      {/* button */}
-      {/*  */}
+        {/* button */}
+        {/*  */}
 
-      {/* Footer */}
-      {/* <footer className="footer mt-5 py-3 rounded-4"> NOT WORKING BUT PROBABLY SHOULD MAKE INTO ITS OWN COMPONENET
+        {/* Footer */}
+        {/* <footer className="footer mt-5 py-3 rounded-4"> NOT WORKING BUT PROBABLY SHOULD MAKE INTO ITS OWN COMPONENET
         <Container>
           <Row>
             <Col md={4} className="footer-about">
@@ -97,7 +99,7 @@ const LandingPage = () => {
           </Row>
         </Container>
       </footer> */}
-    </Container>
+      </Container>
     </StarryNight>
   );
 };
