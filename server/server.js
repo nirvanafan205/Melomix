@@ -105,6 +105,52 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Change Username endpoint
+app.post("/settings", async (req, res) => {
+  try {
+    const { currentUsername, newUsername, password } = req.body;
+
+    // Ensure new username meets registration criteria
+    const usernameRegex = /\d/; // Regex to ensure username contains at least one number
+    if (!usernameRegex.test(newUsername)) {
+      return res
+        .status(400)
+        .json({ error: "New username must contain at least one number." });
+    }
+
+    // Check if the new username already exists
+    const usernameExists = await userModel.findOne({ name: newUsername });
+    if (usernameExists) {
+      return res.status(400).json({ error: "Username already taken." });
+    }
+
+    // Check if the current username exists and get the user
+    const user = await userModel.findOne({ name: currentUsername });
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials." });
+    }
+
+    // Verify the password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid credentials." });
+    }
+
+    // Update the user's username
+    user.name = newUsername;
+    await user.save();
+
+    // Return the new username in the response
+    res.json({
+      message: "Username changed successfully.",
+      newUsername: user.name,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });

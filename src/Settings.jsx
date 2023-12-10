@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import StarryNight from "./components/starryNight";
+import { UserContext } from "./UserContext";
 
 const Settings = () => {
   const [isChangeUsernameModalOpen, setChangeUsernameModalOpen] =
@@ -16,6 +17,7 @@ const Settings = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [newUsername, setNewUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { user, setUser } = useContext(UserContext);
 
   const openChangeUsernameModal = () => {
     setChangeUsernameModalOpen(true);
@@ -32,7 +34,53 @@ const Settings = () => {
   };
 
   const handleSaveChanges = () => {
+    updateUsername();
     closeChangeUsernameModal();
+  };
+  const updateUsername = async () => {
+    // Basic validation
+    const usernameRegex = /\d/;
+
+    if (!newUsername || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    if (!usernameRegex.test(newUsername)) {
+      alert("New username must contain at least one number.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Include authorization token if required
+        },
+        body: JSON.stringify({
+          currentUsername: user.username,
+          newUsername,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update username");
+      }
+
+      const data = await response.json();
+      alert(data.message);
+
+      // Update the username in your UserContext
+      setUser({ ...user, username: data.newUsername }); // Assuming the response contains the new username
+
+      closeChangeUsernameModal();
+    } catch (error) {
+      console.error("Error updating username:", error);
+      alert(error.message);
+    }
   };
 
   return (
