@@ -12,6 +12,7 @@ import StarryNight from "./components/starryNight";
 import { UserContext } from "./UserContext";
 
 const Settings = () => {
+  // username stuff
   const [isChangeUsernameModalOpen, setChangeUsernameModalOpen] =
     useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -19,8 +20,19 @@ const Settings = () => {
   const [password, setPassword] = useState("");
   const { user, setUser } = useContext(UserContext);
 
+  // password stuff
+  const [isChangePasswordModalOpen, setChangePasswordModalOpen] =
+    useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
   const openChangeUsernameModal = () => {
     setChangeUsernameModalOpen(true);
+  };
+
+  // Function to open the password change modal
+  const openChangePasswordModal = () => {
+    setChangePasswordModalOpen(true);
   };
 
   const closeChangeUsernameModal = () => {
@@ -29,8 +41,23 @@ const Settings = () => {
     setPassword("");
   };
 
+  // Function to close the password change modal
+  const closeChangePasswordModal = () => {
+    setChangePasswordModalOpen(false);
+    setOldPassword("");
+    setNewPassword("");
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  // State to toggle visibility of new password
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  // Function to toggle visibility of new password
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
   };
 
   const handleSaveChanges = () => {
@@ -97,7 +124,10 @@ const Settings = () => {
             </h1>
 
             {/* Change Password */}
-            <div className="tw-flex tw-justify-center tw-mt-4">
+            <div
+              className="tw-flex tw-justify-center tw-mt-4"
+              onClick={openChangePasswordModal}
+            >
               <div className="tw-rounded-full tw-bg-blue-800 tw-h-14 tw-w-64 tw-flex tw-items-center tw-justify-center tw-mr-4">
                 <span className="tw-text-rose-200 tw-font-bold tw-text-xl">
                   Change Password
@@ -207,6 +237,65 @@ const Settings = () => {
                   <button
                     className="tw-bg-indigo-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-ml-4"
                     onClick={closeChangeUsernameModal}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Change Password Modal */}
+          {isChangePasswordModalOpen && (
+            <div className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center">
+              <div className="tw-absolute tw-inset-0 tw-bg-gray-700 tw-opacity-75"></div>
+              <div className="tw-z-10 tw-bg-white tw-p-8 tw-rounded-md tw-absolute tw-w-80 tw-flex tw-flex-col tw-items-center">
+                <h2 className="tw-text-2xl tw-mb-4 tw-text-center">
+                  Change Password
+                </h2>
+
+                {/* Username Input */}
+                <div className="tw-relative tw-my-4">
+                  <input
+                    type="text"
+                    style={{ outline: "none" }}
+                    className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer"
+                    placeholder="Username"
+                  />
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="tw-text-lg tw-absolute tw-text-indigo-800 tw-top-3 tw-left-64"
+                  />
+                </div>
+
+                {/* New Password Input */}
+                <div className="tw-relative tw-my-4">
+                  <input
+                    style={{ outline: "none" }}
+                    type={showNewPassword ? "text" : "password"}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer"
+                    placeholder="New Password"
+                  />
+                  <FontAwesomeIcon
+                    icon={showNewPassword ? faUnlock : faLock}
+                    className="tw-text-lg tw-absolute tw-text-indigo-800 tw-top-3 tw-left-64 tw-cursor-pointer"
+                    onClick={toggleNewPasswordVisibility}
+                  />
+                </div>
+
+                {/* Buttons */}
+                <div className="tw-flex tw-justify-between tw-mt-4">
+                  <button
+                    className="tw-bg-indigo-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md"
+                    // onClick={yourFunctionForSavingChanges} // Add your function to handle password change
+                  >
+                    Save Changes
+                  </button>
+                  <button
+                    className="tw-bg-indigo-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-ml-4"
+                    onClick={closeChangePasswordModal}
                   >
                     Cancel
                   </button>
