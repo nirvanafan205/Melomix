@@ -10,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 import StarryNight from "./components/starryNight";
 
 const LoginPage = () => {
@@ -17,6 +19,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -31,6 +34,8 @@ const LoginPage = () => {
         username: username,
         password: password,
       });
+
+      setUser({ username });
 
       // If login is successful, navigate to "/"
       navigate("/");
