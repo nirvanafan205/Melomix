@@ -28,6 +28,10 @@ const Settings = () => {
   const [newPassword, setNewPassword] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
 
+  // delete account stuff
+  // State for delete account modal visibility
+  const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
+
   const openChangeUsernameModal = () => {
     setChangeUsernameModalOpen(true);
   };
@@ -41,6 +45,16 @@ const Settings = () => {
     setChangeUsernameModalOpen(false);
     setNewUsername("");
     setPassword("");
+  };
+
+  // Function to open the delete account modal
+  const openDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(true);
+  };
+
+  // Function to close the delete account modal
+  const closeDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(false);
   };
 
   // Function to close the password change modal
@@ -180,7 +194,10 @@ const Settings = () => {
             </div>
 
             {/* Delete Account */}
-            <div className="tw-flex tw-justify-center tw-mt-4">
+            <div
+              className="tw-flex tw-justify-center tw-mt-4"
+              onClick={openDeleteAccountModal}
+            >
               <div className="tw-rounded-full tw-bg-fuchsia-300 tw-h-14 tw-w-64 tw-flex tw-items-center tw-justify-center tw-mr-4">
                 <span className="tw-text-teal-300 tw-font-bold tw-text-xl">
                   Delete Account
@@ -340,6 +357,65 @@ const Settings = () => {
             </div>
           )}
         </div>
+        {/* Delete Account Modal */}
+        {isDeleteAccountModalOpen && (
+          <div className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center">
+            <div className="tw-absolute tw-inset-0 tw-bg-gray-700 tw-opacity-75"></div>
+            <div className="tw-z-10 tw-bg-white tw-p-8 tw-rounded-md tw-absolute tw-w-80 tw-flex tw-flex-col tw-items-center">
+              <h2 className="tw-text-2xl tw-mb-4 tw-text-center">
+                Delete Account
+              </h2>
+              <p>
+                Are you sure you want to delete your account? Please confirm
+                your email, username, and password.
+              </p>
+
+              {/* Email Input */}
+              <input
+                type="email"
+                style={{ outline: "none" }}
+                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-6" // Added tw-mb-4 for bottom margin
+                placeholder="Email"
+                // Add onChange handler as needed
+              />
+
+              {/* Username Input */}
+              <input
+                type="text"
+                style={{ outline: "none" }}
+                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-6" // Added tw-mb-4 for bottom margin
+                placeholder="Username"
+                // Add onChange handler as needed
+              />
+
+              {/* Password Input */}
+              <input
+                type="password"
+                style={{ outline: "none" }}
+                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-6" // Added tw-mb-4 for bottom margin
+                placeholder="Password"
+                // Add onChange handler as needed
+              />
+
+              {/* Buttons */}
+              <div className="tw-flex tw-justify-around tw-mt-4">
+                <button
+                  className="tw-bg-green-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-mr-2" // Added tw-ml-2 for left margin on the Confirm Delete button
+                  // Add onClick handler for delete action
+                >
+                  Confirm Delete
+                </button>
+
+                <button
+                  className="tw-bg-red-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-ml-2" // Added tw-mr-2 for right margin on the Cancel button
+                  onClick={closeDeleteAccountModal}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </StarryNight>
   );
