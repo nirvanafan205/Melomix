@@ -20,11 +20,13 @@ const Settings = () => {
   const [password, setPassword] = useState("");
   const { user, setUser } = useContext(UserContext);
 
-  // password stuff
+  // password change related states
   const [isChangePasswordModalOpen, setChangePasswordModalOpen] =
     useState(false);
-  const [oldPassword, setOldPassword] = useState("");
+  const [usernameForPasswordChange, setUsernameForPasswordChange] =
+    useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   const openChangeUsernameModal = () => {
     setChangeUsernameModalOpen(true);
@@ -52,9 +54,6 @@ const Settings = () => {
     setShowPassword(!showPassword);
   };
 
-  // State to toggle visibility of new password
-  const [showNewPassword, setShowNewPassword] = useState(false);
-
   // Function to toggle visibility of new password
   const toggleNewPasswordVisibility = () => {
     setShowNewPassword(!showNewPassword);
@@ -64,6 +63,7 @@ const Settings = () => {
     updateUsername();
     closeChangeUsernameModal();
   };
+
   const updateUsername = async () => {
     // Basic validation
     const usernameRegex = /\d/;
@@ -106,6 +106,38 @@ const Settings = () => {
       closeChangeUsernameModal();
     } catch (error) {
       console.error("Error updating username:", error);
+      alert(error.message);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!usernameForPasswordChange || !newPassword) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: usernameForPasswordChange,
+          newPassword,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to change password");
+      }
+
+      const data = await response.json();
+      alert(data.message);
+      setUsernameForPasswordChange("");
+      setNewPassword("");
+      setChangePasswordModalOpen(false);
+    } catch (error) {
+      console.error("Error changing password:", error);
       alert(error.message);
     }
   };
@@ -260,6 +292,10 @@ const Settings = () => {
                     type="text"
                     style={{ outline: "none" }}
                     className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer"
+                    value={usernameForPasswordChange}
+                    onChange={(e) =>
+                      setUsernameForPasswordChange(e.target.value)
+                    }
                     placeholder="Username"
                   />
                   <FontAwesomeIcon
@@ -285,11 +321,11 @@ const Settings = () => {
                   />
                 </div>
 
-                {/* Buttons */}
+                {/* Buttons inside Change Password Modal */}
                 <div className="tw-flex tw-justify-between tw-mt-4">
                   <button
                     className="tw-bg-indigo-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md"
-                    // onClick={yourFunctionForSavingChanges} // Add your function to handle password change
+                    onClick={handleChangePassword}
                   >
                     Save Changes
                   </button>

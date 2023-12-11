@@ -105,46 +105,78 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Change Username endpoint
+// Combined Settings endpoint for changing username and password
 app.post("/settings", async (req, res) => {
   try {
-    const { currentUsername, newUsername, password } = req.body;
+    const { currentUsername, newUsername, password, username, newPassword } =
+      req.body;
 
-    // Ensure new username meets registration criteria
-    const usernameRegex = /\d/; // Regex to ensure username contains at least one number
-    if (!usernameRegex.test(newUsername)) {
-      return res
-        .status(400)
-        .json({ error: "New username must contain at least one number." });
+    // For changing username
+    if (currentUsername && newUsername && password) {
+      // Validate new username
+      const usernameRegex = /\d/;
+      if (!usernameRegex.test(newUsername)) {
+        return res
+          .status(400)
+          .json({ error: "New username must contain at least one number." });
+      }
+
+      // Check if new username already exists
+      const usernameExists = await userModel.findOne({ name: newUsername });
+      if (usernameExists) {
+        return res.status(400).json({ error: "Username already taken." });
+      }
+
+      // Verify current password
+      const user = await userModel.findOne({ name: currentUsername });
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials." });
+      }
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Invalid credentials." });
+      }
+
+      // Update username
+      user.name = newUsername;
+      await user.save();
+
+      // Return the new username in the response
+      res.json({
+        message: "Username changed successfully.",
+        newUsername: user.name,
+      });
     }
+    // For changing password
+    else if (username && newPassword) {
+      // Validate new password
+      if (
+        newPassword.length < 6 ||
+        !/[A-Z]/.test(newPassword) ||
+        !/\d/.test(newPassword) ||
+        !/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)
+      ) {
+        return res
+          .status(400)
+          .json({ error: "Password does not meet criteria." });
+      }
 
-    // Check if the new username already exists
-    const usernameExists = await userModel.findOne({ name: newUsername });
-    if (usernameExists) {
-      return res.status(400).json({ error: "Username already taken." });
+      // Find the user
+      const user = await userModel.findOne({ name: username });
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      // Hash and update the new password
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedNewPassword;
+      await user.save();
+
+      res.json({ message: "Password changed successfully." });
+    } else {
+      // If neither, send an error response
+      return res.status(400).json({ error: "Invalid request parameters." });
     }
-
-    // Check if the current username exists and get the user
-    const user = await userModel.findOne({ name: currentUsername });
-    if (!user) {
-      return res.status(401).json({ error: "Invalid credentials." });
-    }
-
-    // Verify the password
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Invalid credentials." });
-    }
-
-    // Update the user's username
-    user.name = newUsername;
-    await user.save();
-
-    // Return the new username in the response
-    res.json({
-      message: "Username changed successfully.",
-      newUsername: user.name,
-    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
