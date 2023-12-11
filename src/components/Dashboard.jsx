@@ -10,6 +10,47 @@ export default function Dashboard() {
   const [trackArray, setTrackArray] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState(null);
 
+
+  //constant to keep track of lyrics card visibility===============================================================
+  const [showLyricsCard, setShowLyricsCard] = useState(false);
+  //setting lyrics
+  const [lyrics, setLyrics] = useState('');
+
+  const toggleLyricsCard = () => {
+    setShowLyricsCard(!showLyricsCard);
+  };
+
+  const LyricsCard = ({ lyrics, isVisible}) => {
+    return (
+      <div style={{ backgroundColor: '#1c1c1c' }} className={`lyrics-card ${isVisible ? 'visible' : ''}` }>
+        <div className="lyrics-content"  dangerouslySetInnerHTML={{ __html: lyrics }}>
+        </div>
+      </div>
+    );
+  };
+
+  //trying lyrics stuff again// return the lyrics?
+  const fetchSongLyrics = async (songTitle) => {
+    const encodedSongTitle = encodeURIComponent(songTitle);
+
+    try {
+      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape/${encodedSongTitle}`);
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      console.log(data);
+      const formattedLyrics = data.lyrics.replace(/\n/g, '<br/>');
+      setLyrics(formattedLyrics);
+    } catch (error) {
+      console.error('lyrics error:', error);
+      setLyrics('');
+    }
+  };
+  //--------------------------------------------------------------------------------------------------------------
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -29,7 +70,7 @@ export default function Dashboard() {
   const playTrack = async (track) => {
     setSelectedTrack(track);
     console.log("im testing: " + track.name);
-    await fetchSongLyrics(track.name); 
+    await fetchSongLyrics(track.name);
   };
 
   const neonStyles = {
@@ -38,26 +79,7 @@ export default function Dashboard() {
     accent: '#800080',    // Neon Purple
   };
 
-  //trying lyrics stuff again
-  const fetchSongLyrics = async (songTitle) => {
-    const encodedSongTitle = encodeURIComponent(songTitle);
-  
-    try {
-      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape/${encodedSongTitle}`);
-      
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-  
-      const data = await response.json();
-  
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.error('Error fetching song lyrics:', error);
-      return null; 
-    }
-  };
+
 
   return (
     <div className="dashboard-container container text-center mt-5">
@@ -118,6 +140,13 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {/* Lyrics Card Button */}
+      <button onClick={toggleLyricsCard} className="btn btn-primary position-fixed bottom-0 end-0 m-3 lyrics-button">
+        Show Lyrics
+      </button>
+      {/* Lyrics Card */}
+      {showLyricsCard && <LyricsCard lyrics={lyrics} isVisible={showLyricsCard} />}
     </div>
   );
 }

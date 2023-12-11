@@ -81,3 +81,55 @@ body {
   height: 80px;
   border: 0;
 }
+
+
+/*lyrics css stuff here: 
+*/
+.lyrics-card {
+  position: fixed;
+  bottom: 10%;
+  right: 10px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  max-width: 300px; 
+  max-height: 400px; 
+  display: none;
+  overflow-y: auto; 
+}
+
+.lyrics-card.visible {
+  display: block;
+}
+
+.lyrics-content {
+  max-height: 100%;
+}
+
+.lyrics-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+
+  background-color: #6a0dad; 
+  border-color: #6a0dad;
+  border: none;
+
+  background: radial-gradient(circle, #9500ff, #6d44ff, #6c00d7 );
+  background-size: 400% 400%;
+  animation: Gradient 15s ease infinite;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  transform: scale(1);
+  transition: transform 0.3s ease;}
+
+.lyrics-button:hover {
+  background: radial-gradient(circle, #9500ff, #0059ff, #6c00d7 );
+  background-size: 400% 400%;
+  animation: Gradient 15s ease infinite;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  transform: scale(1.1);
+}
+
