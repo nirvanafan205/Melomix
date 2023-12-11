@@ -105,14 +105,40 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Combined Settings endpoint for changing username and password
+// Combined Settings endpoint for changing username, changing password, and deleting account
 app.post("/settings", async (req, res) => {
   try {
-    const { currentUsername, newUsername, password, username, newPassword } =
-      req.body;
+    const {
+      currentUsername,
+      newUsername,
+      password,
+      username,
+      newPassword,
+      deleteAccount,
+      email,
+    } = req.body;
 
+    // For deleting an account
+    if (deleteAccount && email && username && password) {
+      // Find the user by email and username
+      const user = await userModel.findOne({ email: email, name: username });
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      // Check if the provided password matches the stored hashed password
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      // Delete the user account from the database
+      await userModel.deleteOne({ _id: user._id });
+
+      res.json({ message: "Account deleted successfully." });
+    }
     // For changing username
-    if (currentUsername && newUsername && password) {
+    else if (currentUsername && newUsername && password) {
       // Validate new username
       const usernameRegex = /\d/;
       if (!usernameRegex.test(newUsername)) {
@@ -141,7 +167,6 @@ app.post("/settings", async (req, res) => {
       user.name = newUsername;
       await user.save();
 
-      // Return the new username in the response
       res.json({
         message: "Username changed successfully.",
         newUsername: user.name,
@@ -174,7 +199,7 @@ app.post("/settings", async (req, res) => {
 
       res.json({ message: "Password changed successfully." });
     } else {
-      // If neither, send an error response
+      // If none of the conditions match, send an error response
       return res.status(400).json({ error: "Invalid request parameters." });
     }
   } catch (error) {

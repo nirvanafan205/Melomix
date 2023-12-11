@@ -7,11 +7,19 @@ import {
   faLock,
   faUnlock,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StarryNight from "./components/starryNight";
 import { UserContext } from "./UserContext";
 
 const Settings = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to handle logout
+  const handleLogout = () => {
+    setUser(null); // Clears the user context
+    navigate("/"); // Redirects to the home page
+  };
+
   // username stuff
   const [isChangeUsernameModalOpen, setChangeUsernameModalOpen] =
     useState(false);
@@ -31,6 +39,9 @@ const Settings = () => {
   // delete account stuff
   // State for delete account modal visibility
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
+  const [deleteEmail, setDeleteEmail] = useState("");
+  const [deleteUsername, setDeleteUsername] = useState("");
+  const [deletePassword, setDeletePassword] = useState("");
 
   const openChangeUsernameModal = () => {
     setChangeUsernameModalOpen(true);
@@ -153,6 +164,35 @@ const Settings = () => {
     } catch (error) {
       console.error("Error changing password:", error);
       alert(error.message);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Include authorization token if required
+        },
+        body: JSON.stringify({
+          deleteAccount: true,
+          email: deleteEmail,
+          username: deleteUsername,
+          password: deletePassword,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Account deleted successfully.");
+        handleLogout(); // Log out the user after account deletion
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "Failed to delete account");
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert("An error occurred while trying to delete the account.");
     }
   };
 
@@ -374,40 +414,43 @@ const Settings = () => {
               <input
                 type="email"
                 style={{ outline: "none" }}
-                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-6" // Added tw-mb-4 for bottom margin
+                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-4"
                 placeholder="Email"
-                // Add onChange handler as needed
+                value={deleteEmail}
+                onChange={(e) => setDeleteEmail(e.target.value)}
               />
 
               {/* Username Input */}
               <input
                 type="text"
                 style={{ outline: "none" }}
-                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-6" // Added tw-mb-4 for bottom margin
+                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-4"
                 placeholder="Username"
-                // Add onChange handler as needed
+                value={deleteUsername}
+                onChange={(e) => setDeleteUsername(e.target.value)}
               />
 
               {/* Password Input */}
               <input
                 type="password"
                 style={{ outline: "none" }}
-                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-6" // Added tw-mb-4 for bottom margin
+                className="tw-block tw-w-72 tw-py-2.5 tw-px-0 tw-text-sm tw-text-indigo-800 tw-bg-transparent tw-border-0 tw-border-b-2 tw-border-gray-300 tw-appearance-none tw-dark:text-white tw-dark:border-grey-600 tw-dark:focus:border-blue-500 tw-focus:outline-none tw-focus:ring-0 tw-focus:text-white tw-focus:border-blue-600 tw-peer tw-mb-4"
                 placeholder="Password"
-                // Add onChange handler as needed
+                value={deletePassword}
+                onChange={(e) => setDeletePassword(e.target.value)}
               />
 
               {/* Buttons */}
               <div className="tw-flex tw-justify-around tw-mt-4">
                 <button
-                  className="tw-bg-green-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-mr-2" // Added tw-ml-2 for left margin on the Confirm Delete button
-                  // Add onClick handler for delete action
+                  className="tw-bg-green-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-mr-2"
+                  onClick={handleDeleteAccount}
                 >
                   Confirm Delete
                 </button>
 
                 <button
-                  className="tw-bg-red-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-ml-2" // Added tw-mr-2 for right margin on the Cancel button
+                  className="tw-bg-red-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-md tw-ml-2"
                   onClick={closeDeleteAccountModal}
                 >
                   Cancel
