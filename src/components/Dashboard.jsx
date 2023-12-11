@@ -97,7 +97,7 @@ export default function Dashboard() {
         />
         <button
           type="submit"
-          className="btn btn-purple mt-3"
+          className="btn main-button mt-3"
         >
           Search
         </button>
@@ -127,7 +127,13 @@ export default function Dashboard() {
       </div>
 
       <div className="position-fixed bottom-0 left-0 text-center">
+        {/* Lyrics Card */}
+        {showLyricsCard && <LyricsCard lyrics={lyrics} isVisible={showLyricsCard} />}
         <div className="player-and-lyrics-container">
+          {/* Lyrics Card Button */}{selectedTrack && (
+            <button onClick={toggleLyricsCard} className="btn btn-primary lyrics-button">
+              Show Lyrics
+            </button>)}
           {/* Spotify Iframe */}
           {selectedTrack && (
             <iframe
@@ -142,14 +148,9 @@ export default function Dashboard() {
             ></iframe>
           )}
 
-          {/* Lyrics Card Button */}{selectedTrack && (
-          <button onClick={toggleLyricsCard} className="btn btn-primary lyrics-button">
-            Show Lyrics
-          </button>)}
+
         </div>
       </div>
-      {/* Lyrics Card */}
-      {showLyricsCard && <LyricsCard lyrics={lyrics} isVisible={showLyricsCard} />}
     </div>
   );
 }

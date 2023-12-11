@@ -1,6 +1,7 @@
 /* Dashboard.css */
 
 .dashboard-container {
+  max-width: 1900px;
   color: var(--neon-primary);
   text-align: center;
   animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
@@ -34,6 +35,8 @@ body {
 }
 
 .albums-container {
+  margin: 0 auto;
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -86,14 +89,35 @@ body {
 /*lyrics css stuff here: 
 */
 .lyrics-card {
-  position: fixed;
+  left: 0px;
   bottom: 80px;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  max-width: 300px; 
-  max-height: 400px; 
   overflow-y: auto; 
+}
+
+@media screen and (max-width: 599px) {
+  .lyrics-card {
+    left:0px;
+    width: 400px; 
+    max-height: 300px; 
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+  .lyrics-card {
+    left:0px;
+    max-width: 400px; 
+    max-height: 300px; 
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .lyrics-card {
+    max-width: 400px;
+    max-height: 800px; 
+  }
 }
 
 
@@ -112,5 +136,6 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center; 
-  width:fit-content; 
 }
+
+
