@@ -14,16 +14,19 @@ export default function Dashboard() {
   //constant to keep track of lyrics card visibility===============================================================
   const [showLyricsCard, setShowLyricsCard] = useState(false);
   //setting lyrics
-  const [lyrics, setLyrics] = useState('');
+  const [lyrics, setLyrics] = useState([]);
 
   const toggleLyricsCard = () => {
     setShowLyricsCard(!showLyricsCard);
   };
 
-  const LyricsCard = ({ lyrics, isVisible}) => {
+  const LyricsCard = ({ lyrics, isVisible }) => {
     return (
-      <div style={{ backgroundColor: '#1c1c1c' }} className={`lyrics-card ${isVisible ? 'visible' : ''}` }>
-        <div className="lyrics-content"  dangerouslySetInnerHTML={{ __html: lyrics }}>
+      <div style={{ backgroundColor: '#1c1c1c' }} className={`lyrics-card ${isVisible ? 'visible' : ''}`}>
+        <div className="lyrics-content">
+          {lyrics.map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}
         </div>
       </div>
     );
@@ -43,11 +46,11 @@ export default function Dashboard() {
       const data = await response.json();
 
       console.log(data);
-      const formattedLyrics = data.lyrics.replace(/\n/g, '<br/>');
-      setLyrics(formattedLyrics);
+      const lines = data.lyrics.split('\n');
+      setLyrics(lines);
     } catch (error) {
       console.error('lyrics error:', error);
-      setLyrics('');
+      setLyrics([]);
     }
   };
   //--------------------------------------------------------------------------------------------------------------
@@ -69,8 +72,8 @@ export default function Dashboard() {
 
   const playTrack = async (track) => {
     setSelectedTrack(track);
-    console.log("im testing: " + track.name);
-    await fetchSongLyrics(track.name);
+    console.log(track);
+    await fetchSongLyrics(track.artists[0].name + " " + track.name);
   };
 
   const neonStyles = {
@@ -123,10 +126,10 @@ export default function Dashboard() {
         )}
       </div>
 
-      <div>
-        <h3 className="text-secondary mt-4">Selected Track</h3>
-        {selectedTrack && (
-          <div className="position-fixed bottom-0 left-0 w-100 text-center">
+      <div className="position-fixed bottom-0 left-0 text-center">
+        <div className="player-and-lyrics-container">
+          {/* Spotify Iframe */}
+          {selectedTrack && (
             <iframe
               src={`https://open.spotify.com/embed/track/${selectedTrack.id}`}
               width="300"
@@ -137,14 +140,14 @@ export default function Dashboard() {
               title={`spotify-${selectedTrack.id}`}
               autoPlay
             ></iframe>
-          </div>
-        )}
-      </div>
+          )}
 
-      {/* Lyrics Card Button */}
-      <button onClick={toggleLyricsCard} className="btn btn-primary position-fixed bottom-0 end-0 m-3 lyrics-button">
-        Show Lyrics
-      </button>
+          {/* Lyrics Card Button */}{selectedTrack && (
+          <button onClick={toggleLyricsCard} className="btn btn-primary lyrics-button">
+            Show Lyrics
+          </button>)}
+        </div>
+      </div>
       {/* Lyrics Card */}
       {showLyricsCard && <LyricsCard lyrics={lyrics} isVisible={showLyricsCard} />}
     </div>
