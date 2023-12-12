@@ -17,7 +17,6 @@ npm-debug.log
 .passport.js
 .DS_Store
 
-build/
 dist/
 <<<<<<< HEAD
 client/.parcel-cache
