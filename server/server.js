@@ -14,17 +14,21 @@ app.use(cors(
   {
     origin: "*",
     methods: ["POST", "GET"],
-    credentials: true
+    credentials: false
   }
 ));
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
+//test method
+app.get('/test', (req, res) => {
+  res.status(200).send(); // Respond with a 200 OK status
+});
 
 //lyrics backend here
 app.get('/scrape/:songName', async (req, res) => {
   const songName = req.params.songName;
-
+  console.log("searching for " + songName);
   try {
       const searches = await Client.songs.search(songName);
       if (searches.length === 0) {
