@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { callSpotifyAPI } from "../../server/api/spotifyAPI";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import './Dashboard.css'; // Import your custom styles
+import SongPlayer from './SpotifyPlayer';
 
 export default function Dashboard() {
   const [search, setSearch] = useState("");
   const [trackArray, setTrackArray] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState(null);
-
+  const [accessToken, setAccessToken] = useState('')
+  const ACCESS_TOKEN = "BQDH6LUwjOo2rsWdu5T0X7hZfvulqcfzguV4hj_-e9CNKZXigjWylzFoCYY25l9f1YvJqFHJ8pWa28g_svDGUdY31bNsGl2v5XLN5YV3L8D42KlxSUfk794ajJhXzM8j81BLd5DSbUG4cEnTNx81CNXDyHBFHeon-VZEPg1utU6iqJtnpwt_rCwL1bwCfJU5WKI-xg"
 
   //constant to keep track of lyrics card visibility===============================================================
   const [showLyricsCard, setShowLyricsCard] = useState(false);
@@ -64,6 +66,7 @@ export default function Dashboard() {
         const tracksResponse = await callSpotifyAPI(search);
         let tracks = tracksResponse.tracks.items;
         setTrackArray(tracks);
+        setAccessToken(ACCESS_TOKEN)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -136,16 +139,7 @@ export default function Dashboard() {
             </button>)}
           {/* Spotify Iframe */}
           {selectedTrack && (
-            <iframe
-              src={`https://open.spotify.com/embed/track/${selectedTrack.id}`}
-              width="300"
-              height="80"
-              frameBorder="0"
-              allowtransparency="true"
-              allow="encrypted-media"
-              title={`spotify-${selectedTrack.id}`}
-              autoPlay
-            ></iframe>
+            <SongPlayer accessToken={accessToken} trackUri={selectedTrack?.uri}/>
           )}
 
 

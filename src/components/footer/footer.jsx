@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone, faMusic } from '@fortawesome/free-solid-svg-icons';
 import './footer.css';
 
-import emailjs from 'emailjs-com';
 
 const MyFooter = () => {
 
