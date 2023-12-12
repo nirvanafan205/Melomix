@@ -78,7 +78,7 @@ const Registration = () => {
 
     if (errors.length === 0) {
       try {
-        const response = await axios.post("http://localhost:3001/register", {
+        const response = await axios.post("https://melomix-api.vercel.app/register", {
           username,
           password,
           email,

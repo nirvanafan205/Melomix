@@ -30,7 +30,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/login", {
+      const response = await axios.post("https://melomix-api.vercel.app/login", {
         username: username,
         password: password,
       });

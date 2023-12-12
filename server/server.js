@@ -10,7 +10,13 @@ const Client = new Genius.Client();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors( 
+  {
+    origin: ["https://melomix-dusky.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+));
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
