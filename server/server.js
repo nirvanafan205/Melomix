@@ -30,7 +30,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
 //test method
 app.get('/test', (req, res) => {
-  res.redirect('https://melomix-dusky.vercel.app/');
+  res.redirect('https://test-melomix-deploy.vercel.app/');
 });
 
 //lyrics backend here
