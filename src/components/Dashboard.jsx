@@ -37,7 +37,7 @@ export default function Dashboard() {
 
     try {
       //change this when deployed
-      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape${encodedSongTitle}`);
+      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape/${encodedSongTitle}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
