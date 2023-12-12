@@ -1,12 +1,11 @@
 // Dashboard.jsx
 import React, { useState } from 'react';
-import { callSpotifyAPI } from '../api/spotifyAPI';
+import { callSpotifyAPI } from "../../server/api/spotifyAPI";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import './Dashboard.css'; // Import your custom styles
-import MyFooter from './footer/footer';
 
 export default function Dashboard() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [trackArray, setTrackArray] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState(null);
 
@@ -65,7 +64,7 @@ export default function Dashboard() {
         let tracks = tracksResponse.tracks.items;
         setTrackArray(tracks);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }
   };
@@ -77,9 +76,9 @@ export default function Dashboard() {
   };
 
   const neonStyles = {
-    primary: '#ff00ff',   // Neon Pink
-    secondary: '#00ffff', // Neon Blue
-    accent: '#800080',    // Neon Purple
+    primary: "#ff00ff", // Neon Pink
+    secondary: "#00ffff", // Neon Blue
+    accent: "#800080", // Neon Purple
   };
 
 

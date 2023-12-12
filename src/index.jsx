@@ -1,18 +1,16 @@
-// importing React and ReactDOM libraryies
-// BrowserRouter, Routes, and Route is used for client-side routing
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom";
+import { UserProvider } from "./UserContext"; // Adjust the path as necessary
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    
-    <BrowserRouter>
+  <BrowserRouter>
+    <UserProvider>
       <App />
-    </BrowserRouter>
-  );
-
-ReactDOM.render(<App />, document.getElementById("root"));
+    </UserProvider>
+  </BrowserRouter>
+);

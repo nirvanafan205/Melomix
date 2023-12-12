@@ -9,6 +9,8 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import StarryNight from "./components/starryNight";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,6 +23,7 @@ const Registration = () => {
   const [passwordError, setPasswordError] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
+  const { setUser } = useContext(UserContext);
   const [notification, setNotification] = useState({ message: "", type: "" });
 
   const togglePasswordVisibility = () => {
@@ -80,6 +83,8 @@ const Registration = () => {
           password,
           email,
         });
+        // Set user in context
+        setUser({ username });
 
         setUsername("");
         setPassword("");
