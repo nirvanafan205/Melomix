@@ -78,7 +78,7 @@ const Registration = () => {
 
     if (errors.length === 0) {
       try {
-        const response = await axios.post("http://137.184.4.135:3001/register", {
+        const response = await axios.post("https://137.184.4.135:3001/register", {
           username,
           password,
           email,

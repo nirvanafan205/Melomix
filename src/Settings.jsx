@@ -104,7 +104,7 @@ const Settings = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/settings", {
+      const response = await fetch("https://137.184.4.135:3001/settings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
