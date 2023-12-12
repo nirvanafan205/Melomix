@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Carousel } from "react-bootstrap";
-import { getArtistFromName } from "../../api/spotifyAPI";
+import { getArtistFromName } from "../../../server/api/spotifyAPI";
 import "./ArtistCarousel.css";
 
 const ArtistCarousel = ({ artists }) => {
