@@ -12,7 +12,6 @@ const app = express();
 app.use(express.json());
 app.use(cors( 
   {
-    //origin: "https://test-melomix-deploy.vercel.app/",
     origin: "*",
     methods: ["POST", "GET"],
     credentials: true
@@ -245,6 +244,5 @@ app.post("/settings", async (req, res) => {
 });
 
 app.listen(3001, () => {
-  const address = app.address();
-  console.log(`Server is running at http://${address.address}:${address.port}`);
+  console.log("Server is running on port 3001");
 });
