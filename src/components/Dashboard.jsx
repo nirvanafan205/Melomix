@@ -36,7 +36,8 @@ export default function Dashboard() {
     const encodedSongTitle = encodeURIComponent(songTitle);
 
     try {
-      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape/${encodedSongTitle}`);
+      //change this when deployed
+      const response = await fetch(`http://localhost:3001/scrape/${encodedSongTitle}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);

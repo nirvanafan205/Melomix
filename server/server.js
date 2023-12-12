@@ -4,12 +4,38 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const userModel = require("./models/user");
 
+// Import Genius lyrics package
+const Genius = require("genius-lyrics");
+const Client = new Genius.Client();
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
+
+
+//lyrics backend here
+app.get('/scrape/:songName', async (req, res) => {
+  const songName = req.params.songName;
+
+  try {
+      const searches = await Client.songs.search(songName);
+      if (searches.length === 0) {
+          return res.status(404).send({ error: "No songs found" });
+      }
+
+      // Pick the first song from the search results
+      const firstSong = searches[0];
+      const lyrics = await firstSong.lyrics();
+
+      return res.send({ title: firstSong.title, lyrics: lyrics });
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send({ error: "Error fetching lyrics" });
+  }
+});
+
 
 app.post("/register", async (req, res) => {
   try {
