@@ -39,12 +39,14 @@ app.get('/scrape/:songName', async (req, res) => {
   console.log("searching for " + songName);
   try {
       const searches = await Client.songs.search(songName);
+      console.log(searches);
       if (searches.length === 0) {
           return res.status(404).send({ error: "No songs found" });
       }
 
       // Pick the first song from the search results
       const firstSong = searches[0];
+      console.log("frist song: " + firstSong);
       const lyrics = await firstSong.lyrics();
 
       console.log(lyrics);
