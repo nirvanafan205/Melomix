@@ -36,6 +36,7 @@ app.get('/scrape/:songName', async (req, res) => {
       const firstSong = searches[0];
       const lyrics = await firstSong.lyrics();
 
+      console.log(lyrics);
       return res.send({ title: firstSong.title, lyrics: lyrics });
   } catch (error) {
       console.error(error);
@@ -47,6 +48,7 @@ app.get('/scrape/:songName', async (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     // Validate the data (similar to client-side validation logic)
+    console.log("someone registering");
     let errors = [];
 
     if (req.body.password.length < 6) {
@@ -108,6 +110,7 @@ app.post("/register", async (req, res) => {
 // Login endpoint
 app.post("/login", async (req, res) => {
   try {
+    console.log("someone logging in");
     const { username, password } = req.body;
 
     // Check if the username exists
