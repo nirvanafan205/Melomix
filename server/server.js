@@ -40,7 +40,7 @@ app.get('/scrape/:songName', async (req, res) => {
       const lyrics = await firstSong.lyrics();
 
       console.log(lyrics);
-      return res.send({ title: firstSong.title, lyrics: lyrics });
+      return res.send(lyrics);
   } catch (error) {
       console.error(error);
       return res.status(500).send({ error: "Error fetching lyrics" });
