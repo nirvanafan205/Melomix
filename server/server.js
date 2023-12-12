@@ -9,6 +9,14 @@ const Genius = require("genius-lyrics");
 const Client = new Genius.Client();
 const app = express();
 
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('/etc/ssl/private/selfsigned.key'),
+  cert: fs.readFileSync('/etc/ssl/certs/selfsigned.crt')
+};
+
 app.use(express.json());
 app.use(cors( 
   {
@@ -247,6 +255,6 @@ app.post("/settings", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+https.createServer(options, app).listen(3001, () => {
+  console.log("HTTPS Server is running on port 3001");
 });

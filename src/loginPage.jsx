@@ -30,7 +30,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://137.184.4.135:3001/login", {
+      const response = await axios.post("https://137.184.4.135:3001/login", {
         username: username,
         password: password,
       });
