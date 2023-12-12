@@ -1,0 +1,160 @@
+/* src/styles.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Define a CSS animation */
+@keyframes tw-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Apply the animation to your gradient background */
+.tw-bg-gradient-spin {
+    animation: tw-rotate 5s linear infinite;
+    /* Adjust the duration and timing function as needed */
+}
+
+@keyframes tw-rainbow {
+
+    0%,
+    100% {
+        color: royalblue;
+    }
+
+    14% {
+        color: aquamarine;
+    }
+
+    28% {
+        color: magenta;
+    }
+
+    42% {
+        color: blueviolet;
+    }
+
+    57% {
+        color: pink;
+    }
+
+    71% {
+        color: plum;
+    }
+
+    85% {
+        color: indigo;
+    }
+}
+
+.tw-animate-rainbow {
+    animation: tw-rainbow 9s infinite linear;
+}
+
+/*  this is for login starry night */
+
+/* Animation for moving twinkling image to the left */
+@keyframes tw-moveTwinkleLeft {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+        /* Adjust the percentage as needed */
+    }
+}
+
+.tw-animate-move-twinkle-back {
+    animation: tw-moveTwinkleLeft 50s linear infinite;
+    /* Adjust the duration as needed */
+}
+
+@keyframes tw-moveCloudsRight {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+        /* Adjust the percentage as needed */
+    }
+}
+
+.tw-animate-move-clouds {
+    animation: tw-moveCloudsRight 50s linear infinite;
+    /* Adjust the duration as needed */
+}
+
+#exclusive-container {
+    width: 100%;
+    height: 65pt;
+}
+
+#nav-row {
+    background-image: url(https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg);
+    animation: colorShift 15s infinite;
+    /* Adjust the duration as needed */
+}
+
+@keyframes colorShift {
+    0% {
+        height: 100%;
+        border-bottom: 0.2rem solid #482FF5;
+    }
+
+    50% {
+        height: 100%;
+        border-bottom: 0.2rem solid #F555D4;
+    }
+
+    100% {
+        height: 100%;
+        border-bottom: 0.2rem solid #482FF5;
+    }
+}
+
+.nav-link {
+    text-align: center;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color: aliceblue;
+    padding: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.nav-link:hover {
+    color: #ca45ff;
+}
+
+.active-link {
+    color: #865DFF !important;
+}
+
+/* Additional styles for the logout button */
+.logout-button {
+    background-color: transparent;
+    border: none;
+    color: aliceblue;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.logout-button:hover {
+    color: #ca45ff;
+    background-color: transparent;
+}

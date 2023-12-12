@@ -1,0 +1,141 @@
+/* Dashboard.css */
+
+.dashboard-container {
+  max-width: 1900px;
+  color: var(--neon-primary);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
+  background-image: url('./stars.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./stars.png'); /* Adjust the path based on your file structure */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dashboard-container {
+  color: var(--neon-primary);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.albums-container {
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.album-container {
+  margin: 20px;
+  text-align: center;
+}
+
+.album-container img {
+  width: 100%;
+  max-width: 300px; /* Adjust the max-width to make the albums larger */
+  border-radius: 10px;
+}
+
+.album-container p {
+  color: var(--neon-secondary);
+  margin-top: 10px;
+}
+
+.album-container .btn-purple {
+  background-color: var(--neon-accent);
+  color: #bd24c2;
+  margin-top: 10px;
+}
+
+.album-container h3 {
+  color: var(--neon-accent);
+  margin-top: 20px;
+}
+
+.album-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.album-container li {
+  margin-bottom: 20px;
+}
+
+.album-container iframe {
+  width: 300px;
+  height: 80px;
+  border: 0;
+}
+
+
+/*lyrics css stuff here: 
+*/
+.lyrics-card {
+  left: 0px;
+  bottom: 80px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  overflow-y: auto; 
+}
+
+@media screen and (max-width: 599px) {
+  .lyrics-card {
+    left:0px;
+    width: 100%; 
+    max-height: 300px; 
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+  .lyrics-card {
+    left:0px;
+    width: 100%; 
+    max-height: 300px; 
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .lyrics-card {
+    max-width: 400px;
+    max-height: 800px; 
+  }
+}
+
+
+.lyrics-content {
+  max-height: 100%;
+}
+
+.lyrics-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+
+  border: none;
+}
+.player-and-lyrics-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+}
+
+

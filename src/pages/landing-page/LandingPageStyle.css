@@ -1,0 +1,115 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* style.css */
+
+html body {
+    background-color: #121212; 
+    color: #fff; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Banner styles */
+  .melomix-logo-banner {
+    background-color: #9500ff; 
+    color: white;
+    padding: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 300px;
+
+    border-radius: 10px;
+    background: linear-gradient(0.25turn, rgb(25, 0, 255), rgb(174, 43, 226), magenta );
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  }
+  
+  @keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .listen-now-card {
+    background-image: url('https://hificentre.com/cdn/shop/articles/shutterstock_540242140.jpg?v=1622196442');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+
+  .listen-now-card:hover{
+    transform: scale(1.05);
+  }
+
+  .featured-card {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+
+  .featured-card:hover{
+    transform: scale(1.05);
+  }
+
+  .melomix-logo-banner{
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+
+  .melomix-logo-banner:hover{
+    transform: scale(1.02);
+  }
+
+  .melomix-logo-banner h1 {
+    font-size: 7rem;
+    font-weight: bold;
+    margin: 0; 
+  }
+  
+  /* Card styles for dark theme */
+  div.card {
+    padding: 30px;
+    background-color: #1c1c1c; 
+    color: white;
+  }
+  
+  div.card-title {
+    padding: 0 0  10px  0;
+    font-size: 2rem;
+    font-weight:bold;
+  }
+  
+  /* Button styles for dark theme */
+  /* button.btn-primary {
+    font-size: 1.5rem;
+    border-radius: 150px;
+    background-color: #6a0dad; 
+    border-color: #6a0dad;
+    border: none;
+
+    background: radial-gradient(circle, #9500ff, #6d44ff, #6c00d7 );
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  } */
+  
+  /* Optionally: Change button hover effects */
+  /* button.btn-primary:hover {
+    background: radial-gradient(circle, #9500ff, #0059ff, #6c00d7 );
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+    transform: scale(1.1);
+  } */
