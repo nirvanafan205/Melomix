@@ -12,7 +12,8 @@ const app = express();
 app.use(express.json());
 app.use(cors( 
   {
-    origin: ["https://melomix-dusky.vercel.app"],
+    //origin: ["https://test-melomix-deploy-tthanhs-projects.vercel.app/"],
+    origin: "*",
     methods: ["POST", "GET"],
     credentials: true
   }
