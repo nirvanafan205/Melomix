@@ -37,7 +37,7 @@ export default function Dashboard() {
 
     try {
       //change this when deployed
-      const response = await fetch(`http://localhost:3001/scrape/${encodedSongTitle}`);
+      const response = await fetch(`https://melomix-dusky.vercel.app/scrape/${encodedSongTitle}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
