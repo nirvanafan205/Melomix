@@ -6,7 +6,7 @@ const userModel = require("./models/user");
 
 // Import Genius lyrics package
 const Genius = require("genius-lyrics");
-const Client = new Genius.Client();
+const Client = new Genius.Client("aYunYQVyVapYlPkeulV8WtstL7lZFUMzomul69zShYXt4L_SN-r9tVEPqb3RoAY6");
 const app = express();
 
 const https = require('https');
