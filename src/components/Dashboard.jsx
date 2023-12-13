@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [trackArray, setTrackArray] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState(null);
   const [accessToken, setAccessToken] = useState('')
-  const ACCESS_TOKEN = "BQDH6LUwjOo2rsWdu5T0X7hZfvulqcfzguV4hj_-e9CNKZXigjWylzFoCYY25l9f1YvJqFHJ8pWa28g_svDGUdY31bNsGl2v5XLN5YV3L8D42KlxSUfk794ajJhXzM8j81BLd5DSbUG4cEnTNx81CNXDyHBFHeon-VZEPg1utU6iqJtnpwt_rCwL1bwCfJU5WKI-xg"
+  const ACCESS_TOKEN = "BQA-5Wj2Dr3XynhIz3PF6lHVec2L8p1aEfjI4BmEwuDplqhVK-P4joTlk65GO5iOpLqAmqII_10I9tqBJ7mEXKRHSIqtV9-hcI6OEMtYIUeHha6c2ZsB_qh9z-RC02vQ8INS2R172aMJEw3caI8p4OV1OOT8HazS7Q84ti-5gmr1bQnu9fNsTsqV8T94C4TukyTT6w"
 
   //constant to keep track of lyrics card visibility===============================================================
   const [showLyricsCard, setShowLyricsCard] = useState(false);
@@ -39,7 +39,7 @@ export default function Dashboard() {
 
     try {
       //change this when deployed
-      const response = await fetch(`http://localhost:3001/scrape/${encodedSongTitle}`);
+      const response = await fetch(`https://cool-azure-donut.glitch.me/scrape/${encodedSongTitle}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
