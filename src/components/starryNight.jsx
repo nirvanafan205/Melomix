@@ -5,15 +5,15 @@ const StarryNight = ({ children }) => {
     <div className="tw-relative tw-w-full tw-h-screen">
       <div
         className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-w-full tw-h-full tw-bg-black tw-bg-repeat tw-bg-center tw-z-0"
-        style={{ backgroundImage: 'url("stars.png")' }}
+        style={{ backgroundImage: 'url("/stars.png")' }}
       ></div>
       <div
         className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-w-full tw-h-full tw-bg-transparent tw-bg-repeat tw-bg-center tw-z-1 tw-animate-move-twinkle-back"
-        style={{ backgroundImage: 'url("twinkling.png")' }}
+        style={{ backgroundImage: 'url("/twinkling.png")' }}
       ></div>
       <div
         className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-w-full tw-h-full tw-clouds tw-bg-clouds tw-opacity-40 tw-animate-move-clouds"
-        style={{ backgroundImage: 'url("clouds.png")' }}
+        style={{ backgroundImage: 'url("/clouds.png")' }}
       ></div>
       {children}
     </div>
