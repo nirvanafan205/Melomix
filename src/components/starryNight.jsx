@@ -1,7 +1,7 @@
 import React from "react";
-import starsImg from './stars.png';
-import twinklingImg from './twinkling.png';
-import cloudsImg from './clouds.png';
+import starsImg from '/stars.png';
+import twinklingImg from '/twinkling.png';
+import cloudsImg from '/clouds.png';
 
 const StarryNight = ({ children }) => {
   return (
