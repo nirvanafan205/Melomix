@@ -36,7 +36,7 @@ body {
 
 .albums-container {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1800px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -87,9 +87,12 @@ body {
 }
 
 #searchText{
-  max-width: 600px;
   font-weight: bold;
   font-size: 21pt;
+}
+
+#searchBox{
+  max-width: 800px;
 }
 
 #songName{

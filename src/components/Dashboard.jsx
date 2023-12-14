@@ -89,7 +89,7 @@ export default function Dashboard() {
       {/* Search Title Text */}
       <h2 className="tw-text-left tw-mb-2 custom-large-margin tw-text-2xl tw-animate-rainbow" id="searchText">Search</h2>
       {/* Search Bar */}
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} id ="searchBox">
         <input
           type="text"
           value={search}
