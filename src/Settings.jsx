@@ -142,7 +142,7 @@ const Settings = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/settings", {
+      const response = await fetch("https://localhost:3001/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
