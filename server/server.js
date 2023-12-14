@@ -18,13 +18,11 @@ const options = {
 };
 
 app.use(express.json());
-app.use(cors( 
-  {
-    origin: "*",
-    methods: ["POST", "GET"],
-    credentials: true
-  }
-));
+app.use(cors({
+  origin: "*",
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true
+}));
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
