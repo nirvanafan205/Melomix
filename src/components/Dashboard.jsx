@@ -85,19 +85,29 @@ export default function Dashboard() {
 
 
   return (
-    <div className="dashboard-container container text-center mt-5">
-      <h2 className="text-secondary">Search</h2>
+    <div className="tw-text-center tw-mt-2 tw-p-10">
+      {/* Search Title Text */}
+      <h2 className="tw-text-left tw-mb-2 custom-large-margin tw-text-2xl tw-animate-rainbow" id="searchText">Search</h2>
+      {/* Search Bar */}
       <form onSubmit={handleSearch}>
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="form-control"
-          style={{ color: neonStyles.primary }}
+          className="tw-w-full tw-p-2 tw-border-2 tw-border-purple-500 tw-rounded-full tw-text-center tw-text-purple-500 tw-font-bold tw-outline-none"
+          style={{
+            color: neonStyles.primary,
+            width: '75%', // Adjust the width as needed
+            padding: '10px', // Adjust the padding as needed
+            // Add any other styles as needed
+          }}
         />
+        <br></br>
+        {/* Search Button */}
         <button
+          style={{ backgroundColor: neonStyles.accent, width: '80pt'}}
           type="submit"
-          className="btn main-button mt-3"
+          className="btn btn-purple mt-3 tw-rounded-full tw-p-2 tw-text-center tw-text-purple-400 tw-font-bold tw-outline-none"
         >
           Search
         </button>
@@ -112,7 +122,21 @@ export default function Dashboard() {
                 alt={track.name}
                 className="img-fluid rounded"
               />
-              <h3 className="text-secondary mt-3">{track.name}</h3>
+                            <h3 className="text-secondary mt-3" id='songName'>{track.name}</h3>
+              <h3 className="text-secondary mt-3">{track.artists[0].name} | {track.album.name}</h3>
+              
+              <div className='tw-flex tw-justify-center tw-items-center tw-mt-2 tw-flex-row'>
+                  <select
+                    className="tw-border-2 tw-border-purple-500 tw-rounded-full tw-text-center tw-text-purple-500 tw-font-bold tw-outline-none"
+                    style={{ color: neonStyles.primary }}
+                    onChange={(e) => setSelectedPlaylistId(e.target.value)}
+                  >
+                    <option value="">Select Playlist</option>
+                  </select>
+                  <button 
+                    className='tw-ml-2 tw-bg-purple-500 tw-rounded-full tw-text-white tw-font-bold tw-p-2 tw-px-4 tw-outline-none tw-border-2 tw-border-purple-500 tw-border-solid'
+                  >+</button>
+                </div>
               <button
                 onClick={() => playTrack(track)}
                 className="btn btn-purple"
