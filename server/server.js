@@ -6,35 +6,48 @@ const userModel = require("./models/user");
 
 // Import Genius lyrics package
 const Genius = require("genius-lyrics");
-const Client = new Genius.Client();
+const Client = new Genius.Client("aYunYQVyVapYlPkeulV8WtstL7lZFUMzomul69zShYXt4L_SN-r9tVEPqb3RoAY6");
 const app = express();
 
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('/etc/ssl/private/selfsigned.key'),
+  cert: fs.readFileSync('/etc/ssl/certs/selfsigned.crt')
+};
+
 app.use(express.json());
-app.use(cors( 
-  {
-    origin: ["https://melomix-dusky.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true
-  }
-));
+app.use(cors({
+  origin: "*",
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true
+}));
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
+//test method
+app.get('/test', (req, res) => {
+  res.redirect('https://test-melomix-deploy.vercel.app/');
+});
 
 //lyrics backend here
 app.get('/scrape/:songName', async (req, res) => {
   const songName = req.params.songName;
-
+  console.log("searching for " + songName);
   try {
       const searches = await Client.songs.search(songName);
+      console.log(searches);
       if (searches.length === 0) {
           return res.status(404).send({ error: "No songs found" });
       }
 
       // Pick the first song from the search results
       const firstSong = searches[0];
+      console.log("frist song: " + firstSong);
       const lyrics = await firstSong.lyrics();
 
+      console.log(lyrics);
       return res.send({ title: firstSong.title, lyrics: lyrics });
   } catch (error) {
       console.error(error);
@@ -46,6 +59,7 @@ app.get('/scrape/:songName', async (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     // Validate the data (similar to client-side validation logic)
+    console.log("someone registering");
     let errors = [];
 
     if (req.body.password.length < 6) {
@@ -107,6 +121,7 @@ app.post("/register", async (req, res) => {
 // Login endpoint
 app.post("/login", async (req, res) => {
   try {
+    console.log("someone logging in");
     const { username, password } = req.body;
 
     // Check if the username exists
@@ -240,6 +255,6 @@ app.post("/settings", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+https.createServer(options, app).listen(3001, () => {
+  console.log("HTTPS Server is running on port 3001");
 });
