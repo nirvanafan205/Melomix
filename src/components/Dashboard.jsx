@@ -98,6 +98,7 @@ export default function Dashboard() {
           style={{
             color: neonStyles.primary,
             width: '75%', // Adjust the width as needed
+            maxwidth: '800px',
             padding: '10px', // Adjust the padding as needed
             // Add any other styles as needed
           }}
