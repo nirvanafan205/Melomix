@@ -25,6 +25,7 @@ body {
   animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
 }
 
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -36,7 +37,7 @@ body {
 
 .albums-container {
   margin: 0 auto;
-  max-width: 1200px;
+  
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -46,6 +47,7 @@ body {
 .album-container {
   margin: 20px;
   text-align: center;
+  max-width: 300px;
 }
 
 .album-container img {
@@ -61,7 +63,7 @@ body {
 
 .album-container .btn-purple {
   background-color: var(--neon-accent);
-  color: #bd24c2;
+  color: #ec50f1;
   margin-top: 10px;
 }
 
@@ -83,6 +85,21 @@ body {
   width: 300px;
   height: 80px;
   border: 0;
+}
+
+#searchText{
+  font-weight: bold;
+  font-size: 21pt;
+}
+
+#songName{
+  color: azure;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.custom-large-margin {
+  margin-left: 13.7%; /* Adjust the value as needed */
 }
 
 

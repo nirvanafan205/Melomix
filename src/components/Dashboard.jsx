@@ -8,6 +8,7 @@ export default function Dashboard() {
   const [search, setSearch] = useState("");
   const [trackArray, setTrackArray] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState(null);
+  
 
 
   //constant to keep track of lyrics card visibility===============================================================
@@ -86,19 +87,28 @@ export default function Dashboard() {
 
   return (
     <div className="tw-text-center tw-mt-2 tw-p-10">
-        <h2 className="tw-text-left tw-mb-2 tw-ml-1 tw-text-2xl tw-animate-rainbow">Search</h2>
+      {/* Search Title Text */}
+      <h2 className="tw-text-left tw-mb-2 custom-large-margin tw-text-2xl tw-animate-rainbow" id="searchText">Search</h2>
+      {/* Search Bar */}
       <form onSubmit={handleSearch}>
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="tw-w-full tw-p-2 tw-border-2 tw-border-purple-500 tw-rounded-full tw-text-center tw-text-purple-500 tw-font-bold tw-outline-none"
-          style={{ color: neonStyles.primary }}
+          style={{
+            color: neonStyles.primary,
+            width: '75%', // Adjust the width as needed
+            padding: '10px', // Adjust the padding as needed
+            // Add any other styles as needed
+          }}
         />
+        <br></br>
+        {/* Search Button */}
         <button
-          style={{ backgroundColor: neonStyles.accent}}
+          style={{ backgroundColor: neonStyles.accent, width: '80pt'}}
           type="submit"
-          className="btn btn-purple mt-3 tw-rounded-full tw-p-2 tw-text-center tw-text-purple-500 tw-font-bold tw-outline-none"
+          className="btn btn-purple mt-3 tw-rounded-full tw-p-2 tw-text-center tw-text-purple-400 tw-font-bold tw-outline-none"
         >
           Search
         </button>
@@ -114,9 +124,9 @@ export default function Dashboard() {
                 className="img-fluid rounded"
               />
               
-              <h3 className="text-secondary mt-3">{track.album.name}</h3>
-              <h3 className="text-secondary mt-3">{track.artists[0].name}</h3>
-              <h3 className="text-secondary mt-3">{track.name}</h3>
+              <h3 className="text-secondary mt-3" id='songName'>{track.name}</h3>
+              <h3 className="text-secondary mt-3">{track.artists[0].name} | {track.album.name}</h3>
+              
               <div className='tw-flex tw-justify-center tw-items-center tw-mt-2 tw-flex-row'>
                   <select
                     className="tw-border-2 tw-border-purple-500 tw-rounded-full tw-text-center tw-text-purple-500 tw-font-bold tw-outline-none"
