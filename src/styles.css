@@ -4,6 +4,10 @@
 @import 'tailwindcss/utilities';
 
 /* Define a CSS animation */
+/* animation starts at 0% and ends at 100% 
+    rotates an element from 0 - 360 degress
+*/
+
 @keyframes tw-rotate {
     0% {
         transform: rotate(0deg);
@@ -14,12 +18,20 @@
     }
 }
 
-/* Apply the animation to your gradient background */
+/* Apply the animation to your gradient background 
+    rotates elemetns with this class
+    duration of 5 seconds and runs infinitely
+    uses linear timing function
+*/
 .tw-bg-gradient-spin {
     animation: tw-rotate 5s linear infinite;
-    /* Adjust the duration and timing function as needed */
 }
 
+/*
+    key frames of the animation ( 0%, 14%, 28%, etc...)
+    each has own different color value
+    this gives rainbow effect
+*/
 @keyframes tw-rainbow {
 
     0%,
@@ -52,13 +64,21 @@
     }
 }
 
+/*
+    animation has a duration of 9 seconds
+    this will run infinitely
+*/
 .tw-animate-rainbow {
     animation: tw-rainbow 9s infinite linear;
 }
 
 /*  this is for login starry night */
 
-/* Animation for moving twinkling image to the left */
+/* Animation for moving twinkling image to the left 
+    animates the backgroun-position property from 0% to - 100%
+    makes it appear as if an image ( this gives twinkle effect ) moving to the left
+
+*/
 @keyframes tw-moveTwinkleLeft {
     0% {
         background-position: 0 0;
@@ -75,6 +95,10 @@
     /* Adjust the duration as needed */
 }
 
+/*
+        this is another animated background-position that goes from 0% to 100%
+        gives an effect of a cloud drifting
+*/
 @keyframes tw-moveCloudsRight {
     0% {
         background-position: 0 0;

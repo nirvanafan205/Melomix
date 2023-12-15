@@ -6,83 +6,94 @@ const userModel = require("./models/user");
 
 // Import Genius lyrics package
 const Genius = require("genius-lyrics");
-const Client = new Genius.Client("aYunYQVyVapYlPkeulV8WtstL7lZFUMzomul69zShYXt4L_SN-r9tVEPqb3RoAY6");
+const Client = new Genius.Client(
+  "aYunYQVyVapYlPkeulV8WtstL7lZFUMzomul69zShYXt4L_SN-r9tVEPqb3RoAY6"
+);
 const app = express();
 
-const https = require('https');
-const fs = require('fs');
+const https = require("https");
+const fs = require("fs");
 
 const options = {
-  key: fs.readFileSync('/etc/ssl/private/selfsigned.key'),
-  cert: fs.readFileSync('/etc/ssl/certs/selfsigned.crt')
+  key: fs.readFileSync("/etc/ssl/private/selfsigned.key"),
+  cert: fs.readFileSync("/etc/ssl/certs/selfsigned.crt"),
 };
 
 app.use(express.json());
-app.use(cors({
-  origin: "*",
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 mongoose.connect("mongodb://127.0.0.1:27017/Users");
 
 //test method
-app.get('/test', (req, res) => {
-  res.redirect('https://test-melomix-deploy.vercel.app/');
+app.get("/test", (req, res) => {
+  res.redirect("https://test-melomix-deploy.vercel.app/");
 });
 
 //lyrics backend here
-app.get('/scrape/:songName', async (req, res) => {
+app.get("/scrape/:songName", async (req, res) => {
   const songName = req.params.songName;
   console.log("searching for " + songName);
   try {
-      const searches = await Client.songs.search(songName);
-      console.log(searches);
-      if (searches.length === 0) {
-          return res.status(404).send({ error: "No songs found" });
-      }
+    const searches = await Client.songs.search(songName);
+    console.log(searches);
+    if (searches.length === 0) {
+      return res.status(404).send({ error: "No songs found" });
+    }
 
-      // Pick the first song from the search results
-      const firstSong = searches[0];
-      console.log("frist song: " + firstSong);
-      const lyrics = await firstSong.lyrics();
+    // Pick the first song from the search results
+    const firstSong = searches[0];
+    console.log("frist song: " + firstSong);
+    const lyrics = await firstSong.lyrics();
 
-      console.log(lyrics);
-      return res.send({ title: firstSong.title, lyrics: lyrics });
+    console.log(lyrics);
+    return res.send({ title: firstSong.title, lyrics: lyrics });
   } catch (error) {
-      console.error(error);
-      return res.status(500).send({ error: "Error fetching lyrics" });
+    console.error(error);
+    return res.status(500).send({ error: "Error fetching lyrics" });
   }
 });
-
 
 app.post("/register", async (req, res) => {
   try {
     // Validate the data (similar to client-side validation logic)
     console.log("someone registering");
+    // all error messages are stored here to be outputted into the modal for when the user doesn't meet requirements
     let errors = [];
 
+    // checks if password has minimum length
     if (req.body.password.length < 6) {
       errors.push("Password is too short (min 6 characters)");
     }
 
+    // this checks for an uppercase letter in the password
     if (!/[A-Z]/.test(req.body.password)) {
       errors.push("Password must contain at least one uppercase letter");
     }
 
+    // this checks for atleast one number in the password input
     if (!/\d/.test(req.body.password)) {
       errors.push("Password must contain at least one number");
     }
 
+    // this checks for atleast one number in the username input
     if (!/\d/.test(req.body.username)) {
       errors.push("Username must contain at least one number");
     }
 
+    // defines a regular expression called emailRegex
+    // regular expression is designed to validate email addresses
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(req.body.email)) {
       errors.push("Enter a valid email address");
     }
 
+    // make sure that the password has one special characters
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(req.body.password)) {
       errors.push("Password must contain at least one special character");
     }
@@ -109,7 +120,11 @@ app.post("/register", async (req, res) => {
       email: req.body.email,
     });
 
+    // asynchronous context
+    // an async function to pause the execution of the function until the
+    // promise returned by the expression after await is resolved
     await user.save();
+    // saves informatin into the DB
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -140,7 +155,6 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    // You can include additional user data in the response if needed
     res.json({
       message: "Login successful",
       username: user.name,
